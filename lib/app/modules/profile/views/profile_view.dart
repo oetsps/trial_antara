@@ -2,35 +2,22 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../../../routes/app_pages.dart';
-import '../controllers/bisnis_controller.dart';
-import '../../../routes/app_menu.dart';
+import '../controllers/profile_controller.dart';
 import '../../../routes/search_help.dart';
+import '../../../routes/app_nav_bar.dart';
 
+// Profiles Screen
+class ProfileView extends GetView<ProfileController> {
+  final String title = ' Profiles';
 
-// Home Screen
-// ignore: must_be_immutable
-class BisnisView extends GetView<BisnisController> {
-  final String title = ' Bisnis';
-
-  const BisnisView({Key? key}) : super(key: key);
+  const ProfileView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const NavBar(),
       appBar: AppBar(
         backgroundColor: const Color(0xFF0B5D98),
-        leading: PopupMenuButton(
-          // color: Colors.grey[800],
-          color: Color.fromARGB(255, 154, 172, 193),
-          icon: const Icon(Icons.list),
-          itemBuilder: (context) => userLog ? popupMenuLoggedIn : popupMenu,
-          onSelected: (String newValue) {
-            if (newValue != Routes.BISNIS) {
-              Navigator.of(context).pushNamed(newValue);
-            }
-          },
-        ),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -65,7 +52,7 @@ class BisnisView extends GetView<BisnisController> {
         child: ElevatedButton(
           style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFF0B5D98))),
           child: const Text(
-           'Bisnis page',
+           'Profiles page',
           ),
           onPressed: () {
           }

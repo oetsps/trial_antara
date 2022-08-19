@@ -23,7 +23,7 @@ class BolaView extends GetView<BolaController> {
           // color: Colors.grey[800],
           color: Color.fromARGB(255, 154, 172, 193),
           icon: const Icon(Icons.list),
-          itemBuilder: (context) => popupMenu,
+          itemBuilder: (context) => userLog ? popupMenuLoggedIn : popupMenu,
           onSelected: (String newValue) {
             if (newValue != Routes.BOLA) {
               Navigator.of(context).pushNamed(newValue);

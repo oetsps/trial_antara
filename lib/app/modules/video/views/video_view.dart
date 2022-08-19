@@ -6,6 +6,7 @@ import '../../../routes/app_pages.dart';
 import '../controllers/video_controller.dart';
 import '../../../routes/app_menu.dart';
 import '../../../routes/search_help.dart';
+import '../../../routes/app_nav_bar.dart';
 
 // Video Screen
 class VideoView extends GetView<VideoController> {
@@ -22,7 +23,7 @@ class VideoView extends GetView<VideoController> {
           // color: Colors.grey[800],
           color: Color.fromARGB(255, 154, 172, 193),
           icon: const Icon(Icons.list),
-          itemBuilder: (context) => popupMenu,
+          itemBuilder: (context) => userLog ? popupMenuLoggedIn : popupMenu,
           onSelected: (String newValue) {
             if (newValue != Routes.VIDEO) {
               Navigator.of(context).pushNamed(newValue);

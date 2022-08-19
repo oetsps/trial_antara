@@ -21,7 +21,7 @@ class LoginView extends GetView<LoginController> {
           // color: Colors.grey[800],
           color: Color.fromARGB(255, 154, 172, 193),
           icon: const Icon(Icons.list),
-          itemBuilder: (context) => popupMenu,
+          itemBuilder: (context) => userLog ? popupMenuLoggedIn : popupMenu,
           onSelected: (String newValue) {
             if (newValue != Routes.LOGIN) {
               Navigator.of(context).pushNamed(newValue);
@@ -100,7 +100,7 @@ class LoginView extends GetView<LoginController> {
             Row(
               children: [
                 Obx((() => Checkbox(
-                  activeColor: Color.fromARGB(255, 162, 41, 33),
+                  activeColor: const Color.fromARGB(255, 162, 41, 33),
                     value: controller.markCheckBox.value,
                     onChanged: (value) => controller.markCheckBox.toggle(),
                   )),
@@ -161,10 +161,12 @@ class LoginView extends GetView<LoginController> {
               ],
             ),
             const SizedBox(height: 20),
-            // ignore: prefer_const_constructors
             ElevatedButton(
-              onPressed: () => Navigator.of(context).pushNamed(Routes.HOME),
-              // onPressed: () => Get.offAllNamed(Routes.HOME),
+              // onPressed: () => Navigator.of(context).pushNamed(Routes.HOME),
+              onPressed: () {
+                userLog = true;
+                Navigator.of(context).pushNamed(Routes.HOME);
+              },
               style: ElevatedButton.styleFrom(
                 primary: Colors.grey[300],
               ),
