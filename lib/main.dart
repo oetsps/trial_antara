@@ -7,11 +7,13 @@ import 'app/routes/app_pages.dart';
 
 
 void main(List<String> args) {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  var scrollController = ScrollController();
+
+  MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -10,6 +10,7 @@ abstract class Routes {
   static const FOTO = _Paths.FOTO;
   static const VIDEO = _Paths.VIDEO;
   static const INFOGRAFIK = _Paths.INFOGRAFIK;
+  static const ENGLISH = _Paths.ENGLISH;
   static const MORE = _Paths.MORE;
   static const LOGIN = _Paths.LOGIN;
   static const PROFILE = _Paths.PROFILE;
@@ -25,6 +26,7 @@ abstract class _Paths {
   static const FOTO = '/foto';
   static const VIDEO = '/video';
   static const INFOGRAFIK = '/infografik';
+  static const ENGLISH = '/english';
   static const MORE = '/more';
   static const LOGIN = '/login';
   static const PROFILE = '/profile';

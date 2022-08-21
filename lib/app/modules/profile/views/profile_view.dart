@@ -17,7 +17,9 @@ class ProfileView extends GetView<ProfileController> {
     return Scaffold(
       drawer: const NavBar(),
       appBar: AppBar(
-        backgroundColor: const Color(0xFF0B5D98),
+        // backgroundColor: const Color(0xFF0B5D98),
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black87,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -29,16 +31,17 @@ class ProfileView extends GetView<ProfileController> {
             Text(
               title,
               style: const TextStyle(
-                color: Colors.black54,
+                color: Colors.black87,
+                // color: Colors.white,
                 fontWeight: FontWeight.bold,
-                fontSize: 30,
+                fontSize: 24,
               ),
             ),
           ],
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.search),
+            icon: const Icon(Icons.search), color: Colors.black87,
             onPressed: () {
               showSearch(
                 context: context,

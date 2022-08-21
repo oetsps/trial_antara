@@ -16,6 +16,8 @@ import '../modules/video/bindings/video_binding.dart';
 import '../modules/video/views/video_view.dart';
 import '../modules/infografik/bindings/infografik_binding.dart';
 import '../modules/infografik/views/infografik_view.dart';
+import '../modules/english/bindings/english_binding.dart';
+import '../modules/english/views/english_view.dart';
 import '../modules/more/bindings/more_binding.dart';
 import '../modules/more/views/more_view.dart';
 import '../modules/login/bindings/login_binding.dart';
@@ -73,6 +75,11 @@ class AppPages {
       name: _Paths.INFOGRAFIK,
       page: () => const InfografikView(),
       binding: InfografikBinding(),
+    ),
+    GetPage(
+      name: _Paths.ENGLISH,
+      page: () => const EnglishView(),
+      binding: EnglishBinding(),
     ),
     GetPage(
       name: _Paths.MORE,

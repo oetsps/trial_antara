@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
 import 'package:trial_antara/app/routes/app_menu.dart';
 import 'package:trial_antara/app/routes/app_pages.dart';
 
@@ -90,11 +92,25 @@ class NavBar extends StatelessWidget {
             color: Colors.grey,
           ),
           ListTile(
+            title: const Text('Home'),
+            leading: const Icon(Icons.home),
+            onTap: () {
+              userLog = false;
+              Get.offAllNamed(Routes.HOME);
+              // Navigator.of(context).pushNamed(Routes.HOME);
+            },
+          ),
+          const Divider(
+            height: 5,
+            color: Colors.grey,
+          ),
+          ListTile(
             title: const Text('Exit'),
             leading: const Icon(Icons.exit_to_app),
             onTap: () {
               userLog = false;
-              Navigator.of(context).pushNamed(Routes.HOME);
+              Get.offAllNamed(Routes.HOME);
+              // Navigator.of(context).pushNamed(Routes.HOME);
             },
           ),
         ],

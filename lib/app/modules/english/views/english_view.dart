@@ -3,19 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../routes/app_pages.dart';
-import '../controllers/more_controller.dart';
+import '../controllers/english_controller.dart';
 import '../../../routes/app_menu.dart';
 import '../../../routes/search_help.dart';
 
-// More Screen
-class MoreView extends GetView<MoreController> {
 
-  const MoreView({Key? key}) : super(key: key);
+// Home Screen
+class EnglishView extends GetView<EnglishController> {
+
+  const EnglishView({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+    Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 8,
+      length: 10,
       child: Scaffold(
         body: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
@@ -28,7 +29,7 @@ class MoreView extends GetView<MoreController> {
                   itemBuilder: (context) =>
                       userLog ? popupMenuLoggedIn : popupMenu,
                   onSelected: (String newValue) {
-                    if (newValue != Routes.MORE) {
+                    if (newValue != Routes.ENGLISH) {
                       // Navigator.of(context).pushNamed(newValue);
                       Get.offAllNamed(newValue);
                     }
@@ -40,7 +41,7 @@ class MoreView extends GetView<MoreController> {
                 snap: true,
                 actionsIconTheme: const IconThemeData(opacity: 0.0),
                 title: const Text(
-                  'More',
+                  'English',
                   style: TextStyle(color: Colors.orangeAccent),
                 ),
                 actions: [
@@ -69,14 +70,16 @@ class MoreView extends GetView<MoreController> {
                   indicatorColor: Colors.orangeAccent,
                   indicatorWeight: 4,
                   tabs: [
-                    Tab(text: "More"),
-                    Tab(text: "Komunitas"),
-                    Tab(text: "Antarakita"),
-                    Tab(text: "Podcast"),
-                    Tab(text: "Antara Interaktif"),
-                    Tab(text: "Anti hoaks"),
-                    Tab(text: "Jobs"),
-                    Tab(text: "Artikel"),
+                    Tab(text: "English"),
+                    Tab(text: "Current Issue"),
+                    Tab(text: "World"),
+                    Tab(text: "Business"),
+                    Tab(text: "Indonesia"),
+                    Tab(text: "Article"),
+                    Tab(text: "Photo"),
+                    Tab(text: "Press Release"),
+                    Tab(text: "Info Graphic"),
+                    Tab(text: "Link Bahasa"),
                   ],
                   isScrollable: true,
                 ),
@@ -92,7 +95,7 @@ class MoreView extends GetView<MoreController> {
                       height: 400,
                       child: Center(
                         child: Text(
-                          'More Tab',
+                          'English Tab',
                           style: TextStyle(fontSize: 40),
                         ),
                       ),
@@ -113,7 +116,7 @@ class MoreView extends GetView<MoreController> {
                       height: 400,
                       child: Center(
                         child: Text(
-                          'Komunitas Tab',
+                          'Current Issue Tab',
                           style: TextStyle(fontSize: 40),
                         ),
                       ),
@@ -134,7 +137,7 @@ class MoreView extends GetView<MoreController> {
                       height: 400,
                       child: Center(
                         child: Text(
-                          'Antarakita Tab',
+                          'World Tab',
                           style: TextStyle(fontSize: 40),
                         ),
                       ),
@@ -155,28 +158,7 @@ class MoreView extends GetView<MoreController> {
                       height: 400,
                       child: Center(
                         child: Text(
-                          'Podcast Tab',
-                          style: TextStyle(fontSize: 40),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 1500,
-                      color: Colors.grey,
-                    ),
-                  ]),
-                ),
-              ],
-            ),
-            CustomScrollView(
-              slivers: [
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    const SizedBox(
-                      height: 400,
-                      child: Center(
-                        child: Text(
-                          'Antara Interaktif Tab',
+                          'Business Tab',
                           style: TextStyle(fontSize: 40),
                         ),
                       ),
@@ -197,7 +179,7 @@ class MoreView extends GetView<MoreController> {
                       height: 400,
                       child: Center(
                         child: Text(
-                          'Anti hoaks Tab',
+                          'Indonesia Tab',
                           style: TextStyle(fontSize: 40),
                         ),
                       ),
@@ -218,13 +200,13 @@ class MoreView extends GetView<MoreController> {
                       height: 400,
                       child: Center(
                         child: Text(
-                          'Jobs Tab',
+                          'Article Tab',
                           style: TextStyle(fontSize: 40),
                         ),
                       ),
                     ),
                     Container(
-                      height: 1500,
+                      height: 1200,
                       color: Colors.grey,
                     ),
                   ]),
@@ -239,7 +221,70 @@ class MoreView extends GetView<MoreController> {
                       height: 400,
                       child: Center(
                         child: Text(
-                          'Artikel Tab',
+                          'Photo Tab',
+                          style: TextStyle(fontSize: 40),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: 1200,
+                      color: Colors.grey,
+                    ),
+                  ]),
+                ),
+              ],
+            ),
+            CustomScrollView(
+              slivers: [
+                SliverList(
+                  delegate: SliverChildListDelegate([
+                    const SizedBox(
+                      height: 400,
+                      child: Center(
+                        child: Text(
+                          'Press Release Tab',
+                          style: TextStyle(fontSize: 40),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: 1200,
+                      color: Colors.grey,
+                    ),
+                  ]),
+                ),
+              ],
+            ),
+            CustomScrollView(
+              slivers: [
+                SliverList(
+                  delegate: SliverChildListDelegate([
+                    const SizedBox(
+                      height: 400,
+                      child: Center(
+                        child: Text(
+                          'Info Graphic Tab',
+                          style: TextStyle(fontSize: 40),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: 1200,
+                      color: Colors.grey,
+                    ),
+                  ]),
+                ),
+              ],
+            ),
+            CustomScrollView(
+              slivers: [
+                SliverList(
+                  delegate: SliverChildListDelegate([
+                    const SizedBox(
+                      height: 400,
+                      child: Center(
+                        child: Text(
+                          'Link Bahasa',
                           style: TextStyle(fontSize: 40),
                         ),
                       ),

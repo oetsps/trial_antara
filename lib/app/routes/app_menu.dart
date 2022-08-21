@@ -13,7 +13,7 @@ const List<PopupMenuEntry<String>> popupMenu = [
       contentPadding: EdgeInsets.only(left: 0),
       leading: Icon(Icons.home, color: Colors.black,),
       title: Text(
-        ' Home',
+        'Berita',
         style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 14),
       ),
     ),
@@ -25,7 +25,7 @@ const List<PopupMenuEntry<String>> popupMenu = [
       contentPadding: EdgeInsets.only(left: 0),
       leading: Icon(Icons.business, color: Colors.black,),
       title: Text(
-        ' Bisnis',
+        'Bisnis',
         style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 14),
       ),
     ),
@@ -37,7 +37,7 @@ const List<PopupMenuEntry<String>> popupMenu = [
       contentPadding: EdgeInsets.only(left: 0),
       leading: Icon(Icons.sports, color: Colors.black,),
       title: Text(
-        ' Sport',
+        'Sport',
         style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 14),
       ),
     ),
@@ -49,7 +49,7 @@ const List<PopupMenuEntry<String>> popupMenu = [
       contentPadding: EdgeInsets.only(left: 0),
       leading: Icon(Icons.sports_soccer, color: Colors.black,),
       title: Text(
-        ' Bola',
+        'Bola',
         style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 14),
       ),
     ),
@@ -61,7 +61,7 @@ const List<PopupMenuEntry<String>> popupMenu = [
       contentPadding: EdgeInsets.only(left: 0),
       leading: Icon(Icons.living, color: Colors.black,),
       title: Text(
-        ' Lifestyle',
+        'Lifestyle',
         style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 14),
       ),
     ),
@@ -73,7 +73,7 @@ const List<PopupMenuEntry<String>> popupMenu = [
       contentPadding: EdgeInsets.only(left: 0),
       leading: Icon(Icons.photo, color: Colors.black,),
       title: Text(
-        ' Foto',
+        'Foto',
         style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 14),
       ),
     ),
@@ -85,7 +85,7 @@ const List<PopupMenuEntry<String>> popupMenu = [
       contentPadding: EdgeInsets.only(left: 0),
       leading: Icon(Icons.video_camera_front, color: Colors.black,),
       title: Text(
-        ' Video',
+        'Video',
         style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 14),
       ),
     ),
@@ -97,7 +97,19 @@ const List<PopupMenuEntry<String>> popupMenu = [
       contentPadding: EdgeInsets.only(left: 0),
       leading: Icon(Icons.graphic_eq_rounded, color: Colors.black,),
       title: Text(
-        ' Infografik',
+        'Infografik',
+        style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 14),
+      ),
+    ),
+  ),
+  PopupMenuItem(
+    padding: EdgeInsets.only(left: 6,),
+    value: Routes.ENGLISH,
+    child: ListTile(
+      contentPadding: EdgeInsets.only(left: 0),
+      leading: Icon(Icons.more, color: Colors.black,),
+      title: Text(
+        'English',
         style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 14),
       ),
     ),
@@ -109,7 +121,7 @@ const List<PopupMenuEntry<String>> popupMenu = [
       contentPadding: EdgeInsets.only(left: 0),
       leading: Icon(Icons.more, color: Colors.black,),
       title: Text(
-        ' More',
+        'More',
         style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 14),
       ),
     ),
@@ -121,7 +133,7 @@ const List<PopupMenuEntry<String>> popupMenu = [
       contentPadding: EdgeInsets.only(left: 0),
       leading: Icon(Icons.login, color: Colors.black,),
       title: Text(
-        ' Login',
+        'Login',
         style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 14),
       ),
     ),
@@ -138,7 +150,7 @@ const List<PopupMenuEntry<String>> popupMenuLoggedIn = [
       contentPadding: EdgeInsets.only(left: 0),
       leading: Icon(Icons.home, color: Colors.black,),
       title: Text(
-        ' Home',
+        'Berita',
         style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 14),
       ),
     ),
@@ -150,7 +162,7 @@ const List<PopupMenuEntry<String>> popupMenuLoggedIn = [
       contentPadding: EdgeInsets.only(left: 0),
       leading: Icon(Icons.business, color: Colors.black,),
       title: Text(
-        ' Bisnis',
+        'Bisnis',
         style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 14),
       ),
     ),
@@ -162,7 +174,7 @@ const List<PopupMenuEntry<String>> popupMenuLoggedIn = [
       contentPadding: EdgeInsets.only(left: 0),
       leading: Icon(Icons.sports, color: Colors.black,),
       title: Text(
-        ' Sport',
+        'Sport',
         style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 14),
       ),
     ),
@@ -174,7 +186,7 @@ const List<PopupMenuEntry<String>> popupMenuLoggedIn = [
       contentPadding: EdgeInsets.only(left: 0),
       leading: Icon(Icons.sports_soccer, color: Colors.black,),
       title: Text(
-        ' Bola',
+        'Bola',
         style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 14),
       ),
     ),
@@ -186,7 +198,7 @@ const List<PopupMenuEntry<String>> popupMenuLoggedIn = [
       contentPadding: EdgeInsets.only(left: 0),
       leading: Icon(Icons.living, color: Colors.black,),
       title: Text(
-        ' Lifestyle',
+        'Lifestyle',
         style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 14),
       ),
     ),
@@ -198,7 +210,7 @@ const List<PopupMenuEntry<String>> popupMenuLoggedIn = [
       contentPadding: EdgeInsets.only(left: 0),
       leading: Icon(Icons.photo, color: Colors.black,),
       title: Text(
-        ' Foto',
+        'Foto',
         style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 14),
       ),
     ),
@@ -210,7 +222,7 @@ const List<PopupMenuEntry<String>> popupMenuLoggedIn = [
       contentPadding: EdgeInsets.only(left: 0),
       leading: Icon(Icons.video_camera_front, color: Colors.black,),
       title: Text(
-        ' Video',
+        'Video',
         style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 14),
       ),
     ),
@@ -222,7 +234,19 @@ const List<PopupMenuEntry<String>> popupMenuLoggedIn = [
       contentPadding: EdgeInsets.only(left: 0),
       leading: Icon(Icons.graphic_eq_rounded, color: Colors.black,),
       title: Text(
-        ' Infografik',
+        'Infografik',
+        style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 14),
+      ),
+    ),
+  ),
+  PopupMenuItem(
+    padding: EdgeInsets.only(left: 6,),
+    value: Routes.ENGLISH,
+    child: ListTile(
+      contentPadding: EdgeInsets.only(left: 0),
+      leading: Icon(Icons.more, color: Colors.black,),
+      title: Text(
+        'English',
         style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 14),
       ),
     ),
@@ -234,7 +258,7 @@ const List<PopupMenuEntry<String>> popupMenuLoggedIn = [
       contentPadding: EdgeInsets.only(left: 0),
       leading: Icon(Icons.more, color: Colors.black,),
       title: Text(
-        ' More',
+        'More',
         style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 14),
       ),
     ),
@@ -247,7 +271,7 @@ const List<PopupMenuEntry<String>> popupMenuLoggedIn = [
       contentPadding: EdgeInsets.only(left: 0),
       leading: Icon(Icons.person, color: Colors.black,),
       title: Text(
-        ' Profile',
+        'Profile',
         style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 14),
       ),
     ),

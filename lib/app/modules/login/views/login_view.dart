@@ -9,22 +9,22 @@ import '../../../routes/search_help.dart';
 
 
 class LoginView extends GetView<LoginController> {
-  final String title = ' Masuk';
+  final String title = ' Daftar / Masuk';
 
   const LoginView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFF0B5D98),
+        backgroundColor: Colors.white,
         leading: PopupMenuButton(
-          // color: Colors.grey[800],
-          color: Color.fromARGB(255, 154, 172, 193),
-          icon: const Icon(Icons.list),
+          color: Colors.grey[300],
+          icon: const Icon(Icons.list, color: Colors.black87),
           itemBuilder: (context) => userLog ? popupMenuLoggedIn : popupMenu,
           onSelected: (String newValue) {
             if (newValue != Routes.LOGIN) {
-              Navigator.of(context).pushNamed(newValue);
+              // Navigator.of(context).pushNamed(newValue);
+              Get.offAllNamed(newValue);
             }
           },
         ),
@@ -39,7 +39,7 @@ class LoginView extends GetView<LoginController> {
             Text(
               title,
               style: const TextStyle(
-                color: Colors.black54,
+                color: Colors.black87,
                 fontWeight: FontWeight.bold,
                 fontSize: 30,
               ),
@@ -48,7 +48,7 @@ class LoginView extends GetView<LoginController> {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.search),
+            icon: const Icon(Icons.search, color: Colors.black87),
             onPressed: () {
               showSearch(
                 context: context,
