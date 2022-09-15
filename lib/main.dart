@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:trial_antara/app/widgets/splash.dart';
+import 'package:an_app_vone/app/widgets/splash.dart';
 
 import 'app/routes/app_pages.dart';
+import 'model/an_response.dart';
 
 
 void main(List<String> args) {

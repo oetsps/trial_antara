@@ -38,52 +38,52 @@ class AppPages {
   static final routes = [
     GetPage(
       name: _Paths.HOME,
-      page: () => const HomeView(),
+      page: () => HomeView(),
       binding: HomeBinding(),
     ),
     GetPage(
       name: _Paths.BISNIS,
-      page: () => const BisnisView(),
+      page: () => BisnisView(),
       binding: BisnisBinding(),
     ),
     GetPage(
       name: _Paths.SPORT,
-      page: () => const SportView(),
+      page: () => SportView(),
       binding: SportBinding(),
     ),
     GetPage(
       name: _Paths.BOLA,
-      page: () => const BolaView(),
+      page: () => BolaView(),
       binding: BolaBinding(),
     ),
     GetPage(
       name: _Paths.LIFESTYLE,
-      page: () => const LifestyleView(),
+      page: () => LifestyleView(),
       binding: LifestyleBinding(),
     ),
     GetPage(
       name: _Paths.FOTO,
-      page: () => const FotoView(),
+      page: () => FotoView(),
       binding: FotoBinding(),
     ),
     GetPage(
       name: _Paths.VIDEO,
-      page: () => const VideoView(),
+      page: () => VideoView(),
       binding: VideoBinding(),
     ),
     GetPage(
       name: _Paths.INFOGRAFIK,
-      page: () => const InfografikView(),
+      page: () => InfografikView(),
       binding: InfografikBinding(),
     ),
     GetPage(
       name: _Paths.ENGLISH,
-      page: () => const EnglishView(),
+      page: () => EnglishView(),
       binding: EnglishBinding(),
     ),
     GetPage(
       name: _Paths.MORE,
-      page: () => const MoreView(),
+      page: () => MoreView(),
       binding: MoreBinding(),
     ),
     GetPage(

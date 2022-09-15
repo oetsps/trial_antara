@@ -165,7 +165,8 @@ class LoginView extends GetView<LoginController> {
               // onPressed: () => Navigator.of(context).pushNamed(Routes.HOME),
               onPressed: () {
                 userLog = true;
-                Navigator.of(context).pushNamed(Routes.HOME);
+                // Navigator.of(context).pushNamed(Routes.HOME);
+                Get.offAllNamed(Routes.HOME);
               },
               style: ElevatedButton.styleFrom(
                 primary: Colors.grey[300],

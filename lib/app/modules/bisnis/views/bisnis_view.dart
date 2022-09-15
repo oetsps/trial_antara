@@ -8,29 +8,29 @@ import '../../../routes/app_menu.dart';
 import '../../../routes/search_help.dart';
 
 
-// Home Screen
-// ignore: must_be_immutable
+// Bisnis Screen
 class BisnisView extends GetView<BisnisController> {
+  var topik = PageTopik(AppTopik.Bisnis);
+  String routeTopik = Routes.BISNIS;
 
-  const BisnisView({Key? key}) : super(key: key);
+  BisnisView({Key? key}) : super(key: key);
 
   @override
-    Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 9,
+      length: topik.subTopikLength(),
       child: Scaffold(
         body: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return [
               SliverAppBar(
                 leading: PopupMenuButton(
-                  // color: const Color.fromARGB(255, 154, 172, 193),
                   color: const Color.fromARGB(255, 241, 220, 218),
                   icon: const Icon(Icons.list),
                   itemBuilder: (context) =>
                       userLog ? popupMenuLoggedIn : popupMenu,
                   onSelected: (String newValue) {
-                    if (newValue != Routes.BISNIS) {
+                    if (newValue != routeTopik) {
                       // Navigator.of(context).pushNamed(newValue);
                       Get.offAllNamed(newValue);
                     }
@@ -40,10 +40,11 @@ class BisnisView extends GetView<BisnisController> {
                 floating: true,
                 pinned: true,
                 snap: true,
-                actionsIconTheme: const IconThemeData(opacity: 0.0),
-                title: const Text(
-                  'Bisnis',
-                  style: TextStyle(color: Colors.orangeAccent),
+                actionsIconTheme: const IconThemeData(opacity: 0.7),
+                title: Text(
+                  topik.getName(),
+                  // topikTitle,
+                  style: const TextStyle(color: Colors.orangeAccent),
                 ),
                 actions: [
                   IconButton(
@@ -67,19 +68,12 @@ class BisnisView extends GetView<BisnisController> {
                     ),
                   ],
                 ),
-                bottom: const TabBar(
+                bottom: TabBar(
                   indicatorColor: Colors.orangeAccent,
                   indicatorWeight: 4,
                   tabs: [
-                    Tab(text: "Bisnis"),
-                    Tab(text: "Property"),
-                    Tab(text: "Infrastruktur"),
-                    Tab(text: "Syariah"),
-                    Tab(text: "Industry"),
-                    Tab(text: "Bursa"),
-                    Tab(text: "UMKM"),
-                    Tab(text: "Financial"),
-                    Tab(text: "BUMN"),
+                    for(var str in topik.getSubTopik())
+                      Tab(text: str.toString())
                   ],
                   isScrollable: true,
                 ),
@@ -87,196 +81,30 @@ class BisnisView extends GetView<BisnisController> {
             ];
           },
           body: TabBarView(children: [
-            CustomScrollView(
-              slivers: [
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    const SizedBox(
-                      height: 400,
-                      child: Center(
-                        child: Text(
-                          'Bisnis Tab',
-                          style: TextStyle(fontSize: 40),
+            for(String str in topik.getSubTopik())
+              CustomScrollView(
+                slivers: [
+                  SliverList(
+                    delegate: SliverChildListDelegate([
+                      SizedBox(
+                        height: 400,
+                        child: Center(
+                          child: Text(
+                            str,
+                            style: const TextStyle(fontSize: 40),
+                          ),
                         ),
                       ),
-                    ),
-                    Container(
-                      height: 1500,
-                      color: Colors.grey,
-                    ),
-                  ]),
-                ),
-              ],
-            ),
-            CustomScrollView(
-              slivers: [
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    const SizedBox(
-                      height: 400,
-                      child: Center(
-                        child: Text(
-                          'Property Tab',
-                          style: TextStyle(fontSize: 40),
-                        ),
+                      Container(
+                        height: 1500,
+                        color: Colors.grey,
                       ),
-                    ),
-                    Container(
-                      height: 1200,
-                      color: Colors.grey,
-                    ),
-                  ]),
-                ),
-              ],
-            ),
-            CustomScrollView(
-              slivers: [
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    const SizedBox(
-                      height: 400,
-                      child: Center(
-                        child: Text(
-                          'Infrastruktur Tab',
-                          style: TextStyle(fontSize: 40),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 1200,
-                      color: Colors.grey,
-                    ),
-                  ]),
-                ),
-              ],
-            ),
-            CustomScrollView(
-              slivers: [
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    const SizedBox(
-                      height: 400,
-                      child: Center(
-                        child: Text(
-                          'Syariah Tab',
-                          style: TextStyle(fontSize: 40),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 1200,
-                      color: Colors.grey,
-                    ),
-                  ]),
-                ),
-              ],
-            ),
-            CustomScrollView(
-              slivers: [
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    const SizedBox(
-                      height: 400,
-                      child: Center(
-                        child: Text(
-                          'Industry Tab',
-                          style: TextStyle(fontSize: 40),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 1200,
-                      color: Colors.grey,
-                    ),
-                  ]),
-                ),
-              ],
-            ),
-            CustomScrollView(
-              slivers: [
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    const SizedBox(
-                      height: 400,
-                      child: Center(
-                        child: Text(
-                          'Bursa Tab',
-                          style: TextStyle(fontSize: 40),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 1200,
-                      color: Colors.grey,
-                    ),
-                  ]),
-                ),
-              ],
-            ),
-            CustomScrollView(
-              slivers: [
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    const SizedBox(
-                      height: 400,
-                      child: Center(
-                        child: Text(
-                          'UMKM Tab',
-                          style: TextStyle(fontSize: 40),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 1200,
-                      color: Colors.grey,
-                    ),
-                  ]),
-                ),
-              ],
-            ),
-            CustomScrollView(
-              slivers: [
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    const SizedBox(
-                      height: 400,
-                      child: Center(
-                        child: Text(
-                          'Financial Tab',
-                          style: TextStyle(fontSize: 40),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 1200,
-                      color: Colors.grey,
-                    ),
-                  ]),
-                ),
-              ],
-            ),
-            CustomScrollView(
-              slivers: [
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    const SizedBox(
-                      height: 400,
-                      child: Center(
-                        child: Text(
-                          'BUMN Tab',
-                          style: TextStyle(fontSize: 40),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 1200,
-                      color: Colors.grey,
-                    ),
-                  ]),
-                ),
-              ],
-            ),
-          ]),
+                    ]),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

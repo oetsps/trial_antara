@@ -9,26 +9,27 @@ import '../../../routes/search_help.dart';
 
 // Foto Screen
 class FotoView extends GetView<FotoController> {
+  var topik = PageTopik(AppTopik.Foto);
+  String routeTopik = Routes.FOTO;
 
-  const FotoView({Key? key}) : super(key: key);
+  FotoView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: topik.subTopikLength(),
       child: Scaffold(
         body: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return [
               SliverAppBar(
                 leading: PopupMenuButton(
-                  // color: const Color.fromARGB(255, 154, 172, 193),
                   color: const Color.fromARGB(255, 241, 220, 218),
                   icon: const Icon(Icons.list),
                   itemBuilder: (context) =>
                       userLog ? popupMenuLoggedIn : popupMenu,
                   onSelected: (String newValue) {
-                    if (newValue != Routes.FOTO) {
+                    if (newValue != routeTopik) {
                       // Navigator.of(context).pushNamed(newValue);
                       Get.offAllNamed(newValue);
                     }
@@ -38,10 +39,11 @@ class FotoView extends GetView<FotoController> {
                 floating: true,
                 pinned: true,
                 snap: true,
-                actionsIconTheme: const IconThemeData(opacity: 0.0),
-                title: const Text(
-                  'Foto',
-                  style: TextStyle(color: Colors.orangeAccent),
+                actionsIconTheme: const IconThemeData(opacity: 0.7),
+                title: Text(
+                  topik.getName(),
+                  // topikTitle,
+                  style: const TextStyle(color: Colors.orangeAccent),
                 ),
                 actions: [
                   IconButton(
@@ -65,13 +67,12 @@ class FotoView extends GetView<FotoController> {
                     ),
                   ],
                 ),
-                bottom: const TabBar(
+                bottom: TabBar(
                   indicatorColor: Colors.orangeAccent,
                   indicatorWeight: 4,
                   tabs: [
-                    Tab(text: "Video"),
-                    Tab(text: "Foto Hardnews"),
-                    Tab(text: "Photo Story"),
+                    for(var str in topik.getSubTopik())
+                      Tab(text: str.toString())
                   ],
                   isScrollable: true,
                 ),
@@ -79,70 +80,30 @@ class FotoView extends GetView<FotoController> {
             ];
           },
           body: TabBarView(children: [
-            CustomScrollView(
-              slivers: [
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    const SizedBox(
-                      height: 400,
-                      child: Center(
-                        child: Text(
-                          'Foto Tab',
-                          style: TextStyle(fontSize: 40),
+            for(String str in topik.getSubTopik())
+              CustomScrollView(
+                slivers: [
+                  SliverList(
+                    delegate: SliverChildListDelegate([
+                      SizedBox(
+                        height: 400,
+                        child: Center(
+                          child: Text(
+                            str,
+                            style: const TextStyle(fontSize: 40),
+                          ),
                         ),
                       ),
-                    ),
-                    Container(
-                      height: 1500,
-                      color: Colors.grey,
-                    ),
-                  ]),
-                ),
-              ],
-            ),
-            CustomScrollView(
-              slivers: [
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    const SizedBox(
-                      height: 400,
-                      child: Center(
-                        child: Text(
-                          'Foto Hardnews Tab',
-                          style: TextStyle(fontSize: 40),
-                        ),
+                      Container(
+                        height: 1500,
+                        color: Colors.grey,
                       ),
-                    ),
-                    Container(
-                      height: 1200,
-                      color: Colors.grey,
-                    ),
-                  ]),
-                ),
-              ],
-            ),
-            CustomScrollView(
-              slivers: [
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    const SizedBox(
-                      height: 400,
-                      child: Center(
-                        child: Text(
-                          'Photo Story Tab',
-                          style: TextStyle(fontSize: 40),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 1200,
-                      color: Colors.grey,
-                    ),
-                  ]),
-                ),
-              ],
-            ),
-          ]),
+                    ]),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -10,26 +10,27 @@ import '../../../routes/search_help.dart';
 
 // Lifestyle Screen
 class LifestyleView extends GetView<LifestyleController> {
+  var topik = PageTopik(AppTopik.Lifestyle);
+  String routeTopik = Routes.LIFESTYLE;
 
-  const LifestyleView({Key? key}) : super(key: key);
+  LifestyleView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 11,
+      length: topik.subTopikLength(),
       child: Scaffold(
         body: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return [
               SliverAppBar(
                 leading: PopupMenuButton(
-                  // color: const Color.fromARGB(255, 154, 172, 193),
                   color: const Color.fromARGB(255, 241, 220, 218),
                   icon: const Icon(Icons.list),
                   itemBuilder: (context) =>
                       userLog ? popupMenuLoggedIn : popupMenu,
                   onSelected: (String newValue) {
-                    if (newValue != Routes.LIFESTYLE) {
+                    if (newValue != routeTopik) {
                       // Navigator.of(context).pushNamed(newValue);
                       Get.offAllNamed(newValue);
                     }
@@ -39,10 +40,11 @@ class LifestyleView extends GetView<LifestyleController> {
                 floating: true,
                 pinned: true,
                 snap: true,
-                actionsIconTheme: const IconThemeData(opacity: 0.0),
-                title: const Text(
-                  'Lifestyle',
-                  style: TextStyle(color: Colors.orangeAccent),
+                actionsIconTheme: const IconThemeData(opacity: 0.7),
+                title: Text(
+                  topik.getName(),
+                  // topikTitle,
+                  style: const TextStyle(color: Colors.orangeAccent),
                 ),
                 actions: [
                   IconButton(
@@ -66,21 +68,12 @@ class LifestyleView extends GetView<LifestyleController> {
                     ),
                   ],
                 ),
-                bottom: const TabBar(
+                bottom: TabBar(
                   indicatorColor: Colors.orangeAccent,
                   indicatorWeight: 4,
                   tabs: [
-                    Tab(text: "Lifestyle"),
-                    Tab(text: "Hiburan"),
-                    Tab(text: "Otomotif"),
-                    Tab(text: "Travel"),
-                    Tab(text: "Health"),
-                    Tab(text: "Parenting"),
-                    Tab(text: "Fashion"),
-                    Tab(text: "Kuliner"),
-                    Tab(text: "Beauty"),
-                    Tab(text: "Spiritualism"),
-                    Tab(text: "Tekno"),
+                    for(var str in topik.getSubTopik())
+                      Tab(text: str.toString())
                   ],
                   isScrollable: true,
                 ),
@@ -88,238 +81,30 @@ class LifestyleView extends GetView<LifestyleController> {
             ];
           },
           body: TabBarView(children: [
-            CustomScrollView(
-              slivers: [
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    const SizedBox(
-                      height: 400,
-                      child: Center(
-                        child: Text(
-                          'Lifestyle Tab',
-                          style: TextStyle(fontSize: 40),
+            for(String str in topik.getSubTopik())
+              CustomScrollView(
+                slivers: [
+                  SliverList(
+                    delegate: SliverChildListDelegate([
+                      SizedBox(
+                        height: 400,
+                        child: Center(
+                          child: Text(
+                            str,
+                            style: const TextStyle(fontSize: 40),
+                          ),
                         ),
                       ),
-                    ),
-                    Container(
-                      height: 1500,
-                      color: Colors.grey,
-                    ),
-                  ]),
-                ),
-              ],
-            ),
-            CustomScrollView(
-              slivers: [
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    const SizedBox(
-                      height: 400,
-                      child: Center(
-                        child: Text(
-                          'Hiburan Tab',
-                          style: TextStyle(fontSize: 40),
-                        ),
+                      Container(
+                        height: 1500,
+                        color: Colors.grey,
                       ),
-                    ),
-                    Container(
-                      height: 1200,
-                      color: Colors.grey,
-                    ),
-                  ]),
-                ),
-              ],
-            ),
-            CustomScrollView(
-              slivers: [
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    const SizedBox(
-                      height: 400,
-                      child: Center(
-                        child: Text(
-                          'Otomotif Tab',
-                          style: TextStyle(fontSize: 40),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 1200,
-                      color: Colors.grey,
-                    ),
-                  ]),
-                ),
-              ],
-            ),
-            CustomScrollView(
-              slivers: [
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    const SizedBox(
-                      height: 400,
-                      child: Center(
-                        child: Text(
-                          'Travel Tab',
-                          style: TextStyle(fontSize: 40),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 1200,
-                      color: Colors.grey,
-                    ),
-                  ]),
-                ),
-              ],
-            ),
-            CustomScrollView(
-              slivers: [
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    const SizedBox(
-                      height: 400,
-                      child: Center(
-                        child: Text(
-                          'Health Tab',
-                          style: TextStyle(fontSize: 40),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 1200,
-                      color: Colors.grey,
-                    ),
-                  ]),
-                ),
-              ],
-            ),
-            CustomScrollView(
-              slivers: [
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    const SizedBox(
-                      height: 400,
-                      child: Center(
-                        child: Text(
-                          'Parenting Tab',
-                          style: TextStyle(fontSize: 40),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 1200,
-                      color: Colors.grey,
-                    ),
-                  ]),
-                ),
-              ],
-            ),
-            CustomScrollView(
-              slivers: [
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    const SizedBox(
-                      height: 400,
-                      child: Center(
-                        child: Text(
-                          'Fashion Tab',
-                          style: TextStyle(fontSize: 40),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 1200,
-                      color: Colors.grey,
-                    ),
-                  ]),
-                ),
-              ],
-            ),
-            CustomScrollView(
-              slivers: [
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    const SizedBox(
-                      height: 400,
-                      child: Center(
-                        child: Text(
-                          'Kuliner Tab',
-                          style: TextStyle(fontSize: 40),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 1200,
-                      color: Colors.grey,
-                    ),
-                  ]),
-                ),
-              ],
-            ),
-            CustomScrollView(
-              slivers: [
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    const SizedBox(
-                      height: 400,
-                      child: Center(
-                        child: Text(
-                          'Beauty Tab',
-                          style: TextStyle(fontSize: 40),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 1200,
-                      color: Colors.grey,
-                    ),
-                  ]),
-                ),
-              ],
-            ),
-            CustomScrollView(
-              slivers: [
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    const SizedBox(
-                      height: 400,
-                      child: Center(
-                        child: Text(
-                          'Spiritualism Tab',
-                          style: TextStyle(fontSize: 40),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 1200,
-                      color: Colors.grey,
-                    ),
-                  ]),
-                ),
-              ],
-            ),
-            CustomScrollView(
-              slivers: [
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    const SizedBox(
-                      height: 400,
-                      child: Center(
-                        child: Text(
-                          'Tekno Tab',
-                          style: TextStyle(fontSize: 40),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 1200,
-                      color: Colors.grey,
-                    ),
-                  ]),
-                ),
-              ],
-            ),
-          ]),
+                    ]),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

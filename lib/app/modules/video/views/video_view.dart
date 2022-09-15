@@ -9,26 +9,27 @@ import '../../../routes/search_help.dart';
 
 // Video Screen
 class VideoView extends GetView<VideoController> {
+  var topik = PageTopik(AppTopik.Video);
+  String routeTopik = Routes.VIDEO;
 
-  const VideoView({Key? key}) : super(key: key);
+  VideoView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 12,
+      length: topik.subTopikLength(),
       child: Scaffold(
         body: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return [
               SliverAppBar(
                 leading: PopupMenuButton(
-                  // color: const Color.fromARGB(255, 154, 172, 193),
                   color: const Color.fromARGB(255, 241, 220, 218),
                   icon: const Icon(Icons.list),
                   itemBuilder: (context) =>
                       userLog ? popupMenuLoggedIn : popupMenu,
                   onSelected: (String newValue) {
-                    if (newValue != Routes.VIDEO) {
+                    if (newValue != routeTopik) {
                       // Navigator.of(context).pushNamed(newValue);
                       Get.offAllNamed(newValue);
                     }
@@ -38,10 +39,11 @@ class VideoView extends GetView<VideoController> {
                 floating: true,
                 pinned: true,
                 snap: true,
-                actionsIconTheme: const IconThemeData(opacity: 0.0),
-                title: const Text(
-                  'Video',
-                  style: TextStyle(color: Colors.orangeAccent),
+                actionsIconTheme: const IconThemeData(opacity: 0.7),
+                title: Text(
+                  topik.getName(),
+                  // topikTitle,
+                  style: const TextStyle(color: Colors.orangeAccent),
                 ),
                 actions: [
                   IconButton(
@@ -65,22 +67,12 @@ class VideoView extends GetView<VideoController> {
                     ),
                   ],
                 ),
-                bottom: const TabBar(
+                bottom: TabBar(
                   indicatorColor: Colors.orangeAccent,
                   indicatorWeight: 4,
                   tabs: [
-                    Tab(text: "Video"),
-                    Tab(text: "Top News"),
-                    Tab(text: "Indonesia Terkini"),
-                    Tab(text: "Kilas Nusantara"),
-                    Tab(text: "Kabar Dunia"),
-                    Tab(text: "Podcast"),
-                    Tab(text: "Feature"),
-                    Tab(text: "Int`l Corner"),
-                    Tab(text: "30 Menit"),
-                    Tab(text: "Antarakita"),
-                    Tab(text: "Lifestyle"),
-                    Tab(text: "Sport Antara"),
+                    for(var str in topik.getSubTopik())
+                      Tab(text: str.toString())
                   ],
                   isScrollable: true,
                 ),
@@ -88,259 +80,30 @@ class VideoView extends GetView<VideoController> {
             ];
           },
           body: TabBarView(children: [
-            CustomScrollView(
-              slivers: [
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    const SizedBox(
-                      height: 400,
-                      child: Center(
-                        child: Text(
-                          'Video Tab',
-                          style: TextStyle(fontSize: 40),
+            for(String str in topik.getSubTopik())
+              CustomScrollView(
+                slivers: [
+                  SliverList(
+                    delegate: SliverChildListDelegate([
+                      SizedBox(
+                        height: 400,
+                        child: Center(
+                          child: Text(
+                            str,
+                            style: const TextStyle(fontSize: 40),
+                          ),
                         ),
                       ),
-                    ),
-                    Container(
-                      height: 1500,
-                      color: Colors.grey,
-                    ),
-                  ]),
-                ),
-              ],
-            ),
-            CustomScrollView(
-              slivers: [
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    const SizedBox(
-                      height: 400,
-                      child: Center(
-                        child: Text(
-                          'Top News Tab',
-                          style: TextStyle(fontSize: 40),
-                        ),
+                      Container(
+                        height: 1500,
+                        color: Colors.grey,
                       ),
-                    ),
-                    Container(
-                      height: 1200,
-                      color: Colors.grey,
-                    ),
-                  ]),
-                ),
-              ],
-            ),
-            CustomScrollView(
-              slivers: [
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    const SizedBox(
-                      height: 400,
-                      child: Center(
-                        child: Text(
-                          'Indonesia Terkini Tab',
-                          style: TextStyle(fontSize: 40),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 1200,
-                      color: Colors.grey,
-                    ),
-                  ]),
-                ),
-              ],
-            ),
-            CustomScrollView(
-              slivers: [
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    const SizedBox(
-                      height: 400,
-                      child: Center(
-                        child: Text(
-                          'Kilas Nusantara Tab',
-                          style: TextStyle(fontSize: 40),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 1200,
-                      color: Colors.grey,
-                    ),
-                  ]),
-                ),
-              ],
-            ),
-            CustomScrollView(
-              slivers: [
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    const SizedBox(
-                      height: 400,
-                      child: Center(
-                        child: Text(
-                          'Kabar Dunia Tab',
-                          style: TextStyle(fontSize: 40),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 1200,
-                      color: Colors.grey,
-                    ),
-                  ]),
-                ),
-              ],
-            ),
-            CustomScrollView(
-              slivers: [
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    const SizedBox(
-                      height: 400,
-                      child: Center(
-                        child: Text(
-                          'Podcast Tab',
-                          style: TextStyle(fontSize: 40),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 1200,
-                      color: Colors.grey,
-                    ),
-                  ]),
-                ),
-              ],
-            ),
-            CustomScrollView(
-              slivers: [
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    const SizedBox(
-                      height: 400,
-                      child: Center(
-                        child: Text(
-                          'Feature Tab',
-                          style: TextStyle(fontSize: 40),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 1200,
-                      color: Colors.grey,
-                    ),
-                  ]),
-                ),
-              ],
-            ),
-            CustomScrollView(
-              slivers: [
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    const SizedBox(
-                      height: 400,
-                      child: Center(
-                        child: Text(
-                          'Int`l Corner Tab',
-                          style: TextStyle(fontSize: 40),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 1200,
-                      color: Colors.grey,
-                    ),
-                  ]),
-                ),
-              ],
-            ),
-            CustomScrollView(
-              slivers: [
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    const SizedBox(
-                      height: 400,
-                      child: Center(
-                        child: Text(
-                          '30 Menit Tab',
-                          style: TextStyle(fontSize: 40),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 1200,
-                      color: Colors.grey,
-                    ),
-                  ]),
-                ),
-              ],
-            ),
-            CustomScrollView(
-              slivers: [
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    const SizedBox(
-                      height: 400,
-                      child: Center(
-                        child: Text(
-                          'Antarkita Tab',
-                          style: TextStyle(fontSize: 40),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 1200,
-                      color: Colors.grey,
-                    ),
-                  ]),
-                ),
-              ],
-            ),
-            CustomScrollView(
-              slivers: [
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    const SizedBox(
-                      height: 400,
-                      child: Center(
-                        child: Text(
-                          'Lifestyle Tab',
-                          style: TextStyle(fontSize: 40),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 1200,
-                      color: Colors.grey,
-                    ),
-                  ]),
-                ),
-              ],
-            ),
-            CustomScrollView(
-              slivers: [
-                SliverList(
-                  delegate: SliverChildListDelegate([
-                    const SizedBox(
-                      height: 400,
-                      child: Center(
-                        child: Text(
-                          'Sport Antara Tab',
-                          style: TextStyle(fontSize: 40),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 1200,
-                      color: Colors.grey,
-                    ),
-                  ]),
-                ),
-              ],
-            ),
-          ]),
+                    ]),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

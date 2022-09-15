@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:trial_antara/app/routes/app_menu.dart';
-import 'package:trial_antara/app/routes/app_pages.dart';
+import 'package:an_app_vone/app/routes/app_menu.dart';
+import 'package:an_app_vone/app/routes/app_pages.dart';
 
 
 class NavBar extends StatelessWidget {
@@ -30,7 +30,7 @@ class NavBar extends StatelessWidget {
               ),
             ),
             decoration: const BoxDecoration(
-              color: Colors.blue,
+              // color: Colors.blue,
               image: DecorationImage(
                 fit: BoxFit.fill,
                 image: AssetImage('assets/images/profile-bg3.jpg'),
@@ -95,9 +95,7 @@ class NavBar extends StatelessWidget {
             title: const Text('Home'),
             leading: const Icon(Icons.home),
             onTap: () {
-              userLog = false;
               Get.offAllNamed(Routes.HOME);
-              // Navigator.of(context).pushNamed(Routes.HOME);
             },
           ),
           const Divider(
