@@ -92,6 +92,38 @@ class DataTopNews {
   Map<String, dynamic> toJson() => _$DataTopNewsToJson(this);
 }
 
+@JsonSerializable(explicitToJson: true)
+class GetNews {
+  final String status;
+  String? message;
+  final List<DataGetNews> data;
+
+  GetNews(this.status, this.message, this.data);
+  factory GetNews.fromJson(Map<String, dynamic> json) => _$GetNewsFromJson(json);
+  Map<String, dynamic> toJson() => _$GetNewsToJson(this);
+}
+
+@JsonSerializable()
+class DataGetNews {
+    int id;
+    int news_type;
+    String category;
+    String? subcategory;
+    String city;
+    String title;
+    String? caption;
+    int? topnews;
+    double timestamp;
+    String photo_small;
+    String photo_medium;
+    String original_url;
+
+  DataGetNews(this.id, this.news_type, this.category, this.subcategory, this.city, this.title, this.caption, this.topnews, this.timestamp, this.photo_small, this.photo_medium, this.original_url);
+
+  factory DataGetNews.fromJson(Map<String, dynamic> json) => _$DataGetNewsFromJson(json);
+
+  Map<String, dynamic> toJson() => _$DataGetNewsToJson(this);
+}
 
 @JsonSerializable(explicitToJson: true)
 class Readnews {

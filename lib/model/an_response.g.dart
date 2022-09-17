@@ -121,6 +121,51 @@ Map<String, dynamic> _$DataTopNewsToJson(DataTopNews instance) =>
       'timestamp': instance.timestamp,
     };
 
+GetNews _$GetNewsFromJson(Map<String, dynamic> json) => GetNews(
+      json['status'] as String,
+      json['message'] as String?,
+      (json['data'] as List<dynamic>)
+          .map((e) => DataGetNews.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$GetNewsToJson(GetNews instance) => <String, dynamic>{
+      'status': instance.status,
+      'message': instance.message,
+      'data': instance.data.map((e) => e.toJson()).toList(),
+    };
+
+DataGetNews _$DataGetNewsFromJson(Map<String, dynamic> json) => DataGetNews(
+      json['id'] as int,
+      json['news_type'] as int,
+      json['category'] as String,
+      json['subcategory'] as String?,
+      json['city'] as String,
+      json['title'] as String,
+      json['caption'] as String?,
+      json['topnews'] as int?,
+      (json['timestamp'] as num).toDouble(),
+      json['photo_small'] as String,
+      json['photo_medium'] as String,
+      json['original_url'] as String,
+    );
+
+Map<String, dynamic> _$DataGetNewsToJson(DataGetNews instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'news_type': instance.news_type,
+      'category': instance.category,
+      'subcategory': instance.subcategory,
+      'city': instance.city,
+      'title': instance.title,
+      'caption': instance.caption,
+      'topnews': instance.topnews,
+      'timestamp': instance.timestamp,
+      'photo_small': instance.photo_small,
+      'photo_medium': instance.photo_medium,
+      'original_url': instance.original_url,
+    };
+
 Readnews _$ReadnewsFromJson(Map<String, dynamic> json) => Readnews(
       json['status'] as String,
       json['message'] as String?,

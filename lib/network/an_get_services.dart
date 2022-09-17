@@ -5,13 +5,34 @@ import 'dart:io';
 import '../model/an_html.dart';
 import '../model/an_response.dart';
 
-// Future<DataModel?> getSinglePostData() async {
-  // DataModel? result;
-Future<Readnews?> getAnApiAction() async {
+
+Future<GetNews?> getGetNews(String url) async {
+  GetNews? result;
+  try {
+    final response = await http.get(
+      Uri.parse(url),
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+      },
+    );
+    if (response.statusCode == 200) {
+      final item = json.decode(response.body);
+      result = GetNews.fromJson(item);
+    } else {
+      print('error');
+    }
+  } catch (e) {
+    log(e.toString());
+  }
+  return result;
+  }
+
+Future<Readnews?> getReadNews(String url) async {
   Readnews? result;
   try {
     final response = await http.get(
-      Uri.parse('https://www.antaranews.com/api/latest?key=eb2b7bce10958893719e9c5906c8c651&app_version=1.102&action=read_news&news_id=3117129'),
+      // Uri.parse('https://www.antaranews.com/api/latest?key=eb2b7bce10958893719e9c5906c8c651&app_version=1.102&action=read_news&news_id=3120853'),
+      Uri.parse(url),
       headers: {
         HttpHeaders.contentTypeHeader: 'application/json',
       },

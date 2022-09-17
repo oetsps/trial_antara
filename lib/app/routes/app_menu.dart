@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import './app_pages.dart';
 
 bool userLog = false;
-String currentTopik = '';
-String currentSubTopik = '';
+// String currentTopik = '';
+// String currentSubTopik = '';
 
 enum AppTopik {
   Berita,
@@ -23,8 +23,10 @@ enum AppTopik {
   Profile
 }
 
+
 class PageTopik {
   final AppTopik topik;
+  // String currentSubTopik = '';
   final List<List<String>> subTopik = const [
     ["Berita", "Politik", "Hukum", "Metro", "Humaniora", "Nusantara", "Dunia"],
     [
@@ -122,6 +124,22 @@ class PageTopik {
   int subTopikLength() {
     return subTopik[topik.index].length;
   }
+
+  AppTopik getPageTopikState() {
+    return topik;
+  }
+
+  // String getPageSubTopikState() {
+  //   return currentSubTopik;
+  // }
+
+  // void setPageTopikState(AppTopik topik) {
+  //   topik = topik;
+  // }
+
+  // String setPageSubTopikState(int index) {
+  //   return currentSubTopik = subTopik[topik.index][index];
+  // }
 }
 
 const List<PopupMenuEntry<String>> popupMenu = [

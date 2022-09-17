@@ -1,42 +1,51 @@
-import 'package:flutter/material.dart';
-import 'dart:convert';
-
 import 'an_api_enums.dart';
 
 typedef NetworkCallBack<R> = R Function(dynamic);
 typedef NetworkOnFailureCallBackWithMessage<R> = R Function(
     NetworkResponseErrorType, String?);
 
-const String API_URL = 'https://www.antaranews.com/api/latest?';
+const String API_URL = 'https://www.antaranews.com/api/latest';
 const String API_KEY = 'eb2b7bce10958893719e9c5906c8c651';
 const String APP_VERSION = '1.102';
 
 // Actions list
-const String GetCategory = 'get_category';
-const String GetNewsType = 'get_news_type';
-const String GetNews = 'get_news';
-const String SearchNews = 'search_news';
-const String GetTopNews = 'get_topnews';
-const String GetPopularNews = 'get_popular_news';
-const String GetRelatedNews = 'get_related_news';
-const String ReadNews = 'read_news';
-const String GetGallery = 'get_gallery';
-const String GetPhotoGallery = 'get_photo_gallery';
-const String GetRelatedGallery = 'get_related_gallery';
-const String GetTopic = 'get_topic';
-const String GetTopicNews = 'get_topic_news';
-const String GetSpecialReport = 'get_special_report';
-const String GetNewsSpecialReport = 'get_news_special_report';
-const String GetVideo = 'get_video';
-const String PlayVideo = 'play_video';
-const String GetRelatedVideo = 'get_related_video';
+const String ActGetCategory = 'get_category';
+const String ActGetNewsType = 'get_news_type';
+const String ActGetNews = 'get_news';
+const String ActSearchNews = 'search_news';
+const String ActGetTopNews = 'get_topnews';
+const String ActGetPopularNews = 'get_popular_news';
+const String ActGetRelatedNews = 'get_related_news';
+const String ActReadNews = 'read_news';
+const String ActGetGallery = 'get_gallery';
+const String ActGetPhotoGallery = 'get_photo_gallery';
+const String ActGetRelatedGallery = 'get_related_gallery';
+const String ActGetTopic = 'get_topic';
+const String ActGetTopicNews = 'get_topic_news';
+const String ActGetSpecialReport = 'get_special_report';
+const String ActGetNewsSpecialReport = 'get_news_special_report';
+const String ActGetVideo = 'get_video';
+const String ActPlayVideo = 'play_video';
+const String ActGetRelatedVideo = 'get_related_video';
+
+Map<String, String> HomeCategory = {
+  'Berita': '',
+  'Top': 'TOP',
+  'Politik': 'PLK',
+  'Hukum': 'HUK',
+  'Metro': 'MET',
+  'Humaniora': 'HNA',
+  'Nusantara': 'TEK',     /* temporary, wait for design */
+  // 'Tenologi': 'TEK',
+  'Dunia': 'INT',
+};
 
 class ApiPars {
-  const ApiPars();
+  Map<String, dynamic> pars = {};
+  
+  ApiPars();
 
   Map<String, dynamic> apiSetAction({
-//       required String valKey,
-//       required String valVer,
     required String valAction,
     String valNewsId = '',
     String valCategory = '',
@@ -52,7 +61,7 @@ class ApiPars {
     String valDateStart = '',
     String valDateEnd = '',
     String valTotalResult = '',
-  }) =>
+  }) => pars = 
       {
         'key': API_KEY,
         'app_version': APP_VERSION,
@@ -91,24 +100,57 @@ class ApiPars {
 
 
 class RequestAnApi {
-  final String rqAction;
-  final String rqCategory;
+  String rqAction = '';
+  String rqCategory = '';
+  String rqSubCategory = '';
 
-  RequestAnApi(this.rqAction, this.rqCategory);
 
-  String requestAnNews(int page, int limit) {
-    ApiPars queryParams = const ApiPars();
-    String url;
-    Map<String, dynamic> querySubParams = {'action': 'read_news', 'page': '5'};
+  RequestAnApi();
 
-    switch (rqAction) {
+  String? requestAnNews({required String action, String? category, int? news_id, int? page, int? limit}) {
+    ApiPars queryParams = ApiPars();
+    String? url = '';
+    // Map<String, dynamic> querySubParams = {'action': 'read_news', 'page': '5'};
+
+    rqAction = action;
+    rqCategory = (category == null) ? '' : category;
+    if (category != null) {
+      rqCategory = category;
+    }
+
+    // switch (rqAction) {
+    switch (action) {
       case 'read_news': {
-        // queryParam = {'action': 'read_news', 'page': '5'};
+        if (news_id == null) {
+          print('news_id is required for action read_news!');
+          url = null;
+          break;
+        }
+        queryParams.apiSetAction(
+          valAction: action,
+          valCategory: HomeCategory[(category == null) ? 'Berita' : category].toString(),
+          // valCategory: rqCategory,
+          valNewsId: news_id.toString(),
+        );
       }
+        break;
+      case 'get_news': {
+        print('Test: ${HomeCategory[(category == null) ? 'Berita' : category].toString()}');
+        queryParams.apiSetAction(
+          valAction: action,
+          valCategory: HomeCategory[(category == null) ? 'Berita' : category].toString(),
+        );
+      }
+        break;
+      default:
         break;
     }
 
-    url = queryParams.composeApiRequest(querySubParams);
+    if (url == null) {
+      print('cannot determine valid url!');
+      return null;
+    }
+    url = queryParams.composeApiRequest(queryParams.pars);
     return url;
   }
 
