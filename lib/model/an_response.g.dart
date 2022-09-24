@@ -185,7 +185,7 @@ DataReadNews _$DataReadNewsFromJson(Map<String, dynamic> json) => DataReadNews(
       json['subcategory'] as String?,
       json['city'] as String,
       json['title'] as String,
-      json['dateline_city'] as String,
+      json['dateline_city'] as String?,
       json['content'] as String,
       json['quote'] as String?,
       json['photo'] as String,
@@ -199,7 +199,9 @@ DataReadNews _$DataReadNewsFromJson(Map<String, dynamic> json) => DataReadNews(
       json['photo_medium'] as String,
       json['original_url'] as String,
       (json['related'] as List<dynamic>)
-          .map((e) => RelatedNews.fromJson(e as Map<String, dynamic>))
+          .map((e) => e == null
+              ? null
+              : RelatedNews.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
@@ -224,7 +226,7 @@ Map<String, dynamic> _$DataReadNewsToJson(DataReadNews instance) =>
       'photo_small': instance.photo_small,
       'photo_medium': instance.photo_medium,
       'original_url': instance.original_url,
-      'related': instance.related.map((e) => e.toJson()).toList(),
+      'related': instance.related.map((e) => e?.toJson()).toList(),
     };
 
 RelatedNews _$RelatedNewsFromJson(Map<String, dynamic> json) => RelatedNews(
@@ -250,4 +252,64 @@ Map<String, dynamic> _$RelatedNewsToJson(RelatedNews instance) =>
       'photo_medium': instance.photo_medium,
       'photo_big': instance.photo_big,
       'timestamp': instance.timestamp,
+    };
+
+SingleReadnews _$SingleReadnewsFromJson(Map<String, dynamic> json) =>
+    SingleReadnews(
+      json['status'] as String,
+      json['message'] as String?,
+      DataSingleReadNews.fromJson(json['data'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$SingleReadnewsToJson(SingleReadnews instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'message': instance.message,
+      'data': instance.data.toJson(),
+    };
+
+DataSingleReadNews _$DataSingleReadNewsFromJson(Map<String, dynamic> json) =>
+    DataSingleReadNews(
+      json['id'] as int,
+      json['news_type'] as int,
+      json['category'] as String,
+      json['subcategory'] as String?,
+      json['city'] as String,
+      json['title'] as String,
+      json['dateline_city'] as String?,
+      json['content'] as String,
+      json['quote'] as String?,
+      json['photo'] as String,
+      json['caption'] as String?,
+      json['keyword'] as String,
+      json['views'] as int,
+      json['redaktur'] as String,
+      json['pewarta'] as String,
+      (json['timestamp'] as num).toDouble(),
+      json['photo_small'] as String,
+      json['photo_medium'] as String,
+      json['original_url'] as String,
+    );
+
+Map<String, dynamic> _$DataSingleReadNewsToJson(DataSingleReadNews instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'news_type': instance.news_type,
+      'category': instance.category,
+      'subcategory': instance.subcategory,
+      'city': instance.city,
+      'title': instance.title,
+      'dateline_city': instance.dateline_city,
+      'content': instance.content,
+      'quote': instance.quote,
+      'photo': instance.photo,
+      'caption': instance.caption,
+      'keyword': instance.keyword,
+      'views': instance.views,
+      'redaktur': instance.redaktur,
+      'pewarta': instance.pewarta,
+      'timestamp': instance.timestamp,
+      'photo_small': instance.photo_small,
+      'photo_medium': instance.photo_medium,
+      'original_url': instance.original_url,
     };

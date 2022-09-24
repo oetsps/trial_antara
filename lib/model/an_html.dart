@@ -47,7 +47,7 @@ class HtmlElement {
     '\n<h1 style="font-size:48px;">',
     '\n',
     '</h1>',
-    '\n<p style="font-size:28px;">',
+    '\n<p style="font-size:32px;">',
     '\n',
     '</p>',
     '\n<footer>\n',

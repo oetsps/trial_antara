@@ -10,7 +10,7 @@ bool userLog = false;
 
 enum AppTopik {
   Berita,
-  Bisnis,
+  Ekonomi,
   Sport,
   Bola,
   Lifestyle,
@@ -23,25 +23,108 @@ enum AppTopik {
   Profile
 }
 
+const int PageNumber = 11;
+
+List<List<String>> menuSubTopik = const [
+    ["Berita", "Politik", "Hukum", "Metro", "Humaniora", /*"Nusantara",*/ "Dunia"],
+    [
+      "Ekonomi",
+      "Bisnis",
+      // "Property",
+      // "Infrastruktur",
+      // "Syariah",
+      // "Industry",
+      "Bursa",
+      // "UMKM",
+      "Finansial",
+      "BUMN"
+    ],
+    ["Sport", /*"All Sport", */"Otosport", "Bulutangkis", "Sportainment", "E-Sport"],
+    ["Bola", "Indonesia", "Liga Inggris", "Liga Champions", "Internasional"],
+    [
+      "Lifestyle",
+      "Hiburan",
+      "Otomotif",
+      "Travel",
+      "Health",
+      "Parenting",
+      "Fashion",
+      "Kuliner",
+      "Beauty",
+      "Spiritualism",
+      "Tekno"
+    ],
+    ["Foto", "Foto Hardnews", "Photo Stories"],
+    [
+      "Video",
+      "Top News",
+      "Indonesia Terkini",
+      "Kilas Nusantara",
+      "Kabar Dunia",
+      "Podcast",
+      "Feature",
+      "Int`l Corner",
+      "30 Menit",
+      "Antarakita",
+      "Lifestyle",
+      "Sport Antara"
+    ],
+    ["Infografik", "Reserved"],
+    [
+      "English",
+      "Current Issue",
+      "World",
+      "Business",
+      "Indonesia",
+      "Article",
+      "Photo",
+      "Press Release",
+      "Infografik",
+      "Link Bahasa"
+    ],
+    [
+      "More",
+      "Komunitas",
+      "Antarakita",
+      "Podcast",
+      "Antara Iteraktif",
+      "Anti Hoaks",
+      "Jobs",
+      "Artikel"
+    ],
+    ["Login"],
+    [
+      "Profile",
+      "Favorites",
+      "Friends",
+      "Share",
+      "Request",
+      "Setting",
+      "Policies",
+      "Home",
+      "Exit"
+    ]
+];
 
 class PageTopik {
   final AppTopik topik;
   // String currentSubTopik = '';
   final List<List<String>> subTopik = const [
-    ["Berita", "Politik", "Hukum", "Metro", "Humaniora", "Nusantara", "Dunia"],
+    ["Berita", "Politik", "Hukum", "Metro", "Humaniora", /*"Nusantara",*/ "Dunia"],
     [
+      "Ekonomi",
       "Bisnis",
-      "Property",
-      "Infrastruktur",
-      "Syariah",
-      "Industry",
+      // "Property",
+      // "Infrastruktur",
+      // "Syariah",
+      // "Industry",
       "Bursa",
-      "UMKM",
-      "Financial",
+      // "UMKM",
+      "Finansial",
       "BUMN"
     ],
-    ["Sport", "All Sport", "Otosport", "Badminton", "Sportainment", "E-sport"],
-    ["Bola", "Bola Indonesia", "Liga Ingris", "Bola Dunia"],
+    ["Sport", /*"All Sport", */"Otosport", "Bulutangkis", "Sportainment", "E-Sport"],
+    ["Bola", "Indonesia", "Liga Inggris", "Liga Champions", "Internasional"],
     [
       "Lifestyle",
       "Hiburan",

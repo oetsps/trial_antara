@@ -144,7 +144,7 @@ class DataReadNews {
     String? subcategory;
     String city;
     String title;
-    String dateline_city;
+    String? dateline_city;
     String content;
     String? quote;
     String photo;
@@ -157,7 +157,7 @@ class DataReadNews {
     String photo_small;
     String photo_medium;
     String original_url;
-    List<RelatedNews> related;
+    List<RelatedNews?> related;
 
   DataReadNews(this.id, this.news_type, this.category, this.subcategory, this.city, this.title, this.dateline_city, this.content, this.quote, this.photo, this.caption, this.keyword, this.views, this.redaktur, this.pewarta, this.timestamp, this.photo_small, this.photo_medium, this.original_url, this.related);
 
@@ -183,4 +183,44 @@ class RelatedNews {
   factory RelatedNews.fromJson(Map<String, dynamic> json) => _$RelatedNewsFromJson(json);
 
   Map<String, dynamic> toJson() => _$RelatedNewsToJson(this);
+}
+
+@JsonSerializable(explicitToJson: true)
+class SingleReadnews {
+  final String status;
+  String? message;
+  final DataSingleReadNews data;
+
+  SingleReadnews(this.status, this.message, this.data);
+  factory SingleReadnews.fromJson(Map<String, dynamic> json) => _$SingleReadnewsFromJson(json);
+  Map<String, dynamic> toJson() => _$SingleReadnewsToJson(this);
+}
+
+@JsonSerializable()
+class DataSingleReadNews {
+    int id;
+    int news_type;
+    String category;
+    String? subcategory;
+    String city;
+    String title;
+    String? dateline_city;
+    String content;
+    String? quote;
+    String photo;
+    String? caption;
+    String keyword;
+    int views;
+    String redaktur;
+    String pewarta;
+    double timestamp;
+    String photo_small;
+    String photo_medium;
+    String original_url;
+
+  DataSingleReadNews(this.id, this.news_type, this.category, this.subcategory, this.city, this.title, this.dateline_city, this.content, this.quote, this.photo, this.caption, this.keyword, this.views, this.redaktur, this.pewarta, this.timestamp, this.photo_small, this.photo_medium, this.original_url);
+
+  factory DataSingleReadNews.fromJson(Map<String, dynamic> json) => _$DataSingleReadNewsFromJson(json);
+
+  Map<String, dynamic> toJson() => _$DataSingleReadNewsToJson(this);
 }

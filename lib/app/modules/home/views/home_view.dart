@@ -1,16 +1,12 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:webview_flutter/webview_flutter.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../../../routes/app_pages.dart';
 import '../../../routes/app_menu.dart';
 import '../../../routes/search_help.dart';
 import '../views/home_repository.dart';
+import 'home_content.dart';
 
 // Berita Screen
 class HomeView extends StatefulWidget {
@@ -19,41 +15,35 @@ class HomeView extends StatefulWidget {
   State<HomeView> createState() => _HomeViewState();
 }
 
-class _HomeViewState extends State<HomeView>
-    with SingleTickerProviderStateMixin {
+class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin {
   PageTopik pageState = PageTopik(AppTopik.Berita);
   String routeTopik = Routes.HOME;
 
   late final TabController _tabController;
-  late WebViewController _controller;
-  // late WebViewController _webViewController;
+  // late WebViewController _controller;
 
   @override
   void initState() {
-    _tabController = TabController(
-        length: pageState.subTopik[AppTopik.Berita.index].length, vsync: this);
+    _tabController = TabController(length: pageState.subTopik[AppTopik.Berita.index].length, vsync: this);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final tabList = List.generate(
+      pageState.subTopik[AppTopik.Berita.index].length,
+      (index) => pageState.subTopik[AppTopik.Berita.index][index]
+    );
     return ChangeNotifierProvider(
       create: ((context) => DataHome()),
-      child: Builder(builder: (context) {
-        final postData = Provider.of<DataHome>(context, listen: false);
-        postData.setSubTopik(pageState.subTopik[AppTopik.Berita.index][0]);
-        postData.getReadNewsData();
-        final tabList = List.generate(
-            pageState.subTopik[AppTopik.Berita.index].length,
-            (index) => pageState.subTopik[AppTopik.Berita.index][index]);
-        return MaterialApp(
+      child: MaterialApp(
           debugShowCheckedModeBanner: false,
           home: DefaultTabController(
             length: pageState.subTopikLength(),
             child: Scaffold(
               body: NestedScrollView(
-                headerSliverBuilder:
-                    (BuildContext context, bool innerBoxIsScrolled) {
+                headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+                  // final postData = Provider.of<DataHome>(context);
                   return [
                     SliverAppBar(
                       leading: PopupMenuButton(
@@ -113,173 +103,11 @@ class _HomeViewState extends State<HomeView>
                     ),
                   ];
                 },
-                body: Builder(builder: (context) {
-                  final postData = Provider.of<DataHome>(context);
-                  return TabBarView(
-                    controller: _tabController,
-                    children: [
-                      // for (String str in tabList)
-                      ...tabList.map((label) => CustomScrollView(
-                            slivers: [
-                              SliverToBoxAdapter(
-                                child: SizedBox(
-                                  height: 360,
-                                  child: ListView.builder(
-                                    padding: const EdgeInsets.all(5.0),
-                                    scrollDirection: Axis.vertical,
-                                    itemCount: 1,
-                                    itemBuilder: (context, index) {
-                                      postData.setSubTopik(label);
-                                      print('Topik: ${pageState.topik.name}, SubTopik: ${postData.getSubTopik()}');
-                                        return postData.loading
-                                          ? Container(
-                                            decoration: BoxDecoration(
-                                              color: Colors.grey[200],
-                                              border: Border.all(
-                                                color: Colors.grey,
-                                              ),
-                                            ),
-                                            height: 1000,
-                                            child: SpinKitThreeBounce(
-                                            itemBuilder: (BuildContext context, int index) {
-                                              return DecoratedBox(
-                                                decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(15),
-                                                color: index.isEven
-                                                  ? Colors.black : Colors.grey,
-                                                ),
-                                              );
-                                              },
-                                            ),
-                                          )
-                                          : Container(
-                                            decoration: BoxDecoration(
-                                              color: Colors.grey[200],
-                                            ),
-                                            height: 1000,
-                                            child: WebView(
-                                              initialUrl: 'about:blank',
-                                              javascriptMode: JavascriptMode.unrestricted,
-                                              onWebViewCreated: (controller) {
-                                                _controller = controller;
-                                                postData.getReadNewsData();
-                                                _controller.loadUrl(
-                                                  Uri.dataFromString(
-                                                    postData.resultHtml,
-                                                    mimeType: 'text/html',
-                                                    encoding: Encoding.getByName('utf-8')
-                                                  ).toString()
-                                                );
-                                              },
-                                            ),
-                                          );
-                                      }
-                                    )
-                                ),
-                              ),
-                              SliverList(
-                                delegate: SliverChildListDelegate([
-                                  for (int i = 0; i < (postData.loading ? 0 : postData.post!.data.related.length); i++)
-                                    GestureDetector(
-                                      // onTap: () {
-                                      //   print(
-                                      //       'show news_id = ${postData.post!.data.related[i].id} in new widget');
-                                      // },
-                                      onTap: (() => Navigator.of(context).push(MaterialPageRoute(
-                                        builder: (BuildContext context) {
-                                          print('News: id = ${postData.post!.data.related[i].id}\n${postData.post!.data.related[i].title}');
-                                          return Scaffold(
-                                            appBar: AppBar(
-                                              backgroundColor: Color.fromARGB(255, 172, 7, 7),
-                                              centerTitle: true,
-                                              foregroundColor: Colors.white,
-                                              title: const Text('Title')
-                                            ),
-                                            body: Container(
-                                              child: WebView(
-                                              initialUrl: 'about:blank',
-                                              javascriptMode: JavascriptMode.unrestricted,
-                                              onWebViewCreated: (controller) {
-                                                _controller = controller;
-                                                postData.getReadSingleNews(postData.post!.data.related[i].id);
-                                                _controller.loadUrl(
-                                                  Uri.dataFromString(
-                                                    postData.resultHtml,
-                                                    mimeType: 'text/html',
-                                                    encoding: Encoding.getByName('utf-8')
-                                                  ).toString()
-                                                );
-                                              },
-
-                                              ),
-                                            ),
-                                          );
-                                        }
-                                      ))),
-                                      // onTap: () => Navigator.push(
-                                      //     context,
-                                      //     MaterialPageRoute(
-                                      //         builder: (context) =>
-                                      //             SingleNewsScreen())),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.grey[200],
-                                        ),
-                                        padding: const EdgeInsets.only(
-                                          top: 2.0, bottom: 2.0
-                                        ),
-                                        margin: const EdgeInsets.only(
-                                          top: 2.0, bottom: 2.0
-                                        ),
-                                        child: SizedBox(
-                                          height: 30,
-                                          child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              SizedBox(
-                                                width: 50,
-                                                height: 30.0,
-                                                child: postData.loading
-                                                  ? Image.asset(
-                                                    'assets/images/antara.png',
-                                                    alignment: Alignment.center,
-                                                  )
-                                                  : Image.network(
-                                                    postData.post!.data.related[i].photo_small,
-                                                    alignment:Alignment.center,
-                                                  ),
-                                              ),
-                                              const SizedBox(
-                                                width: 3,
-                                              ),
-                                              Expanded(
-                                                child: Text(
-                                                  postData.post!.data.related[i].title,
-                                                  softWrap: true,
-                                                  style: const TextStyle(
-                                                    fontSize: 12,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                ]),
-                              ),
-                            ],
-                          )
-                        ),
-                    ],
-                  );
-                }),
+                body: HomeNewsList(tabController: _tabController, tabList: tabList, pageState: pageState),
               ),
             ),
           ),
-        );
-      }),
+      )
     );
   }
 }

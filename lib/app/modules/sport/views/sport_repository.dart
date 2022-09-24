@@ -5,9 +5,9 @@ import '../../../../model/an_response.dart';
 import '../../../../network/an_get_services.dart';
 import '../../../../network/an_api_params.dart';
 
-class DataHome extends ChangeNotifier {
-  final AppTopik topik = AppTopik.Berita;
-  // String subTopik = 'Berita';
+class DataSport extends ChangeNotifier {
+  final AppTopik topik = AppTopik.Sport;
+  // String subTopik = 'Bisnis';
   String curSubTopik = '';
   int curSubTopikIdx = 0;
   bool loading = false;
@@ -24,15 +24,15 @@ class DataHome extends ChangeNotifier {
   late Readnews? postRequestNews;
   late String onRequestNews = '';
 
-  DataHome() {
-    for (var str in menuSubTopik[AppTopik.Berita.index]) {
+  DataSport() {
+    for (var str in menuSubTopik[AppTopik.Sport.index]) {
       listSubTopik.add(str);
       repStatus.add(false);
       repNewsHtml.add('');
     }
 
     repGetNews = List.generate(
-      menuSubTopik[AppTopik.Berita.index].length,
+      menuSubTopik[AppTopik.Sport.index].length,
       (index) => GetNews(
           '',
           null,
@@ -43,7 +43,7 @@ class DataHome extends ChangeNotifier {
     );
 
     repReadNews = List.generate(
-        menuSubTopik[AppTopik.Berita.index].length,
+        menuSubTopik[AppTopik.Sport.index].length,
         (index) => Readnews(
             '',
             null,
@@ -60,8 +60,13 @@ class DataHome extends ChangeNotifier {
 
     if (!repStatus[curSubTopikIdx]) {
       String iUrl = requestAnApi.requestAnNews(
-          action: 'get_news', category: curSubTopik, top_news: 1);
-
+          action: 'get_news',
+          category: 'Sport',
+          subcategory: curSubTopik,
+          // subcategory: (curSubTopik == 'Sport') ? '' : curSubTopik,
+          top_news: 1
+      );
+      print('iUrl ====> $iUrl');
       if (iUrl == '') {
         print('Error get_news cause of invalid url');
         return null;
@@ -76,7 +81,9 @@ class DataHome extends ChangeNotifier {
       for (int i = 0; i < repGetNews[curSubTopikIdx]!.data.length; i++) {
         String url = requestAnApi.requestAnNews(
             action: 'read_news',
-            category: curSubTopik,
+            category: 'Sport',
+            subcategory: curSubTopik,
+            // subcategory: (curSubTopik == 'Sport') ? '' : curSubTopik,
             news_id: repGetNews[curSubTopikIdx]!.data[i].id);
         if (url == '') {
           print('Error read_news cause of invalid url');

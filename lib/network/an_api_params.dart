@@ -1,8 +1,3 @@
-import 'an_api_enums.dart';
-
-typedef NetworkCallBack<R> = R Function(dynamic);
-typedef NetworkOnFailureCallBackWithMessage<R> = R Function(
-    NetworkResponseErrorType, String?);
 
 const String API_URL = 'https://www.antaranews.com/api/latest';
 const String API_KEY = 'eb2b7bce10958893719e9c5906c8c651';
@@ -28,8 +23,8 @@ const String ActGetVideo = 'get_video';
 const String ActPlayVideo = 'play_video';
 const String ActGetRelatedVideo = 'get_related_video';
 
-Map<String, String> HomeCategory = {
-  'Berita': '',
+Map<String, String> NewsCategory = {
+  'Berita': 'TOP',
   'Top': 'TOP',
   'Politik': 'PLK',
   'Hukum': 'HUK',
@@ -38,6 +33,33 @@ Map<String, String> HomeCategory = {
   'Nusantara': 'TEK',     /* temporary, wait for design */
   // 'Tenologi': 'TEK',
   'Dunia': 'INT',
+  'Ekonomi': 'EKB',
+  'Sport': 'ORK',
+  'Bola': 'BOL',
+};
+
+Map<String, String> NewsSubCategory = {
+  'Ekonomi': '',
+  'Bisnis': 'BIS',
+  'BUMN': 'BUN',
+  'Bursa': 'BRS',
+  'Finansial': 'INF',
+  'Kriminalitas': 'KML',
+  'Lenggang Jakarta': 'LJK',
+  'Lintas Kota': 'BKT',
+  'Sport': 'ALS',
+  'Otosport': 'BLP',
+  'Bola Basket': 'BAS',
+  'Bulutangkis': 'BUL',
+  'E-Sport': 'ESP',
+  'Sportainment': 'SPT',
+  'Tenis': 'TEN',
+  'Bola': '',
+  'Indonesia': 'LIN',
+  'Internasional': 'LII',
+  'Liga Inggris': 'LIG',
+  'Liga Champions': 'LCH',
+  'Bintang': 'BTG',
 };
 
 class ApiPars {
@@ -50,6 +72,7 @@ class ApiPars {
     String valNewsId = '',
     String valCategory = '',
     String valSubCategory = '',
+    String valTopNews = '',
     String valPage = '',
     String valLimit = '',
     String valBrief = '',
@@ -69,6 +92,7 @@ class ApiPars {
         'news_id': valNewsId,
         'category': valCategory,
         'subcategory': valSubCategory,
+        'top_news': valTopNews,
         'page': valPage,
         'limit': valLimit,
         'brief': valBrief,
@@ -80,10 +104,8 @@ class ApiPars {
         'total_result': valTotalResult,
       };
 
-  // String composeApiRequest(String url, Map<String, dynamic>? queryParameters) {
   String composeApiRequest(Map<String, dynamic>? queryParameters) {
     String url = API_URL;
-    // if (url.isEmpty) return url;
     if (queryParameters == null || queryParameters.isEmpty) {
       return url;
     }
@@ -100,45 +122,34 @@ class ApiPars {
 
 
 class RequestAnApi {
-  String rqAction = '';
-  String rqCategory = '';
-  String rqSubCategory = '';
-
 
   RequestAnApi();
 
-  String? requestAnNews({required String action, String? category, int? news_id, int? page, int? limit}) {
+  String requestAnNews({required String action, required String category, String? subcategory, int? top_news, int? news_id, int? page, int? limit}) {
     ApiPars queryParams = ApiPars();
-    String? url = '';
-    // Map<String, dynamic> querySubParams = {'action': 'read_news', 'page': '5'};
+    String url = '';
 
-    rqAction = action;
-    rqCategory = (category == null) ? '' : category;
-    if (category != null) {
-      rqCategory = category;
-    }
-
-    // switch (rqAction) {
     switch (action) {
       case 'read_news': {
         if (news_id == null) {
           print('news_id is required for action read_news!');
-          url = null;
-          break;
+          return url;
+        } else {
+          queryParams.apiSetAction(
+            valAction: action,
+            valCategory: NewsCategory[category].toString(),
+            valNewsId: news_id.toString(),
+          );
         }
-        queryParams.apiSetAction(
-          valAction: action,
-          valCategory: HomeCategory[(category == null) ? 'Berita' : category].toString(),
-          // valCategory: rqCategory,
-          valNewsId: news_id.toString(),
-        );
       }
         break;
       case 'get_news': {
-        print('Test: ${HomeCategory[(category == null) ? 'Berita' : category].toString()}');
         queryParams.apiSetAction(
           valAction: action,
-          valCategory: HomeCategory[(category == null) ? 'Berita' : category].toString(),
+          valCategory: NewsCategory[category].toString(),
+          valSubCategory: (subcategory == null) ? '' : NewsSubCategory[subcategory].toString(),
+          valTopNews: '1',
+          valLimit: '11',
         );
       }
         break;
@@ -146,12 +157,6 @@ class RequestAnApi {
         break;
     }
 
-    if (url == null) {
-      print('cannot determine valid url!');
-      return null;
-    }
-    url = queryParams.composeApiRequest(queryParams.pars);
-    return url;
+    return url = queryParams.composeApiRequest(queryParams.pars);
   }
-
 }

@@ -1,112 +1,113 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
 import '../../../routes/app_pages.dart';
-import '../controllers/sport_controller.dart';
 import '../../../routes/app_menu.dart';
 import '../../../routes/search_help.dart';
-
+import 'sport_repository.dart';
+import 'sport_content.dart';
 
 // Sport Screen
-class SportView extends GetView<SportController> {
-  var topik = PageTopik(AppTopik.Sport);
+class SportView extends StatefulWidget {
+  const SportView({Key? key}) : super(key: key);
+  @override
+  State<SportView> createState() => _SportViewState();
+}
+
+class _SportViewState extends State<SportView> with SingleTickerProviderStateMixin {
+  PageTopik pageState = PageTopik(AppTopik.Sport);
   String routeTopik = Routes.SPORT;
 
-  SportView({Key? key}) : super(key: key);
+  late final TabController _tabController;
+  // late WebViewController _controller;
+
+  @override
+  void initState() {
+    _tabController = TabController(length: pageState.subTopik[AppTopik.Sport.index].length, vsync: this);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: topik.subTopikLength(),
-      child: Scaffold(
-        body: NestedScrollView(
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return [
-              SliverAppBar(
-                leading: PopupMenuButton(
-                  color: const Color.fromARGB(255, 241, 220, 218),
-                  icon: const Icon(Icons.list),
-                  itemBuilder: (context) =>
-                      userLog ? popupMenuLoggedIn : popupMenu,
-                  onSelected: (String newValue) {
-                    if (newValue != routeTopik) {
-                      // Navigator.of(context).pushNamed(newValue);
-                      Get.offAllNamed(newValue);
-                    }
-                  },
-                ),
-                expandedHeight: 200.0,
-                floating: true,
-                pinned: true,
-                snap: true,
-                actionsIconTheme: const IconThemeData(opacity: 0.7),
-                title: Text(
-                  topik.getName(),
-                  // topikTitle,
-                  style: const TextStyle(color: Colors.orangeAccent),
-                ),
-                actions: [
-                  IconButton(
-                    color: Colors.white,
-                    icon: const Icon(Icons.search),
-                    onPressed: () {
-                      showSearch(
-                        context: context,
-                        delegate: CustomSearchDelegate(),
-                      );
-                    },
-                  ),
-                ],
-                flexibleSpace: Stack(
-                  children: <Widget>[
-                    Positioned.fill(
-                      child: Image.asset(
-                        'assets/images/antara_bg.png',
-                        fit: BoxFit.cover,
+    final tabList = List.generate(
+      pageState.subTopik[AppTopik.Sport.index].length,
+      (index) => pageState.subTopik[AppTopik.Sport.index][index]
+    );
+    return ChangeNotifierProvider(
+      create: ((context) => DataSport()),
+      child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: DefaultTabController(
+            length: pageState.subTopikLength(),
+            child: Scaffold(
+              body: NestedScrollView(
+                headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+                  // final postData = Provider.of<DataSport>(context);
+                  return [
+                    SliverAppBar(
+                      leading: PopupMenuButton(
+                        color: const Color.fromARGB(255, 241, 220, 218),
+                        icon: const Icon(Icons.list),
+                        itemBuilder: (context) =>
+                            userLog ? popupMenuLoggedIn : popupMenu,
+                        onSelected: (String newValue) {
+                          if (newValue != routeTopik) {
+                            // Navigator.of(context).pushNamed(newValue);
+                            Get.offAllNamed(newValue);
+                          }
+                        },
+                      ),
+                      expandedHeight: 200.0,
+                      floating: true,
+                      pinned: true,
+                      snap: true,
+                      actionsIconTheme: const IconThemeData(opacity: 0.7),
+                      title: Text(
+                        pageState.getName(),
+                        style: const TextStyle(color: Colors.orangeAccent),
+                      ),
+                      actions: [
+                        IconButton(
+                          color: Colors.white,
+                          icon: const Icon(Icons.search),
+                          onPressed: () {
+                            showSearch(
+                              context: context,
+                              delegate: CustomSearchDelegate(),
+                            );
+                          },
+                        ),
+                      ],
+                      flexibleSpace: Stack(
+                        children: <Widget>[
+                          Positioned.fill(
+                            child: Image.asset(
+                              'assets/images/antara_bg.png',
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ],
+                      ),
+                      bottom: TabBar(
+                        controller: _tabController,
+                        indicatorColor: Colors.orangeAccent,
+                        indicatorWeight: 4,
+                        isScrollable: true,
+                        tabs: [
+                          ...tabList.map((label) => Tab(
+                                child: Text(label),
+                              )),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-                bottom: TabBar(
-                  indicatorColor: Colors.orangeAccent,
-                  indicatorWeight: 4,
-                  tabs: [
-                    for(var str in topik.getSubTopik())
-                      Tab(text: str.toString())
-                  ],
-                  isScrollable: true,
-                ),
+                  ];
+                },
+                body: SportNewsList(tabController: _tabController, tabList: tabList, pageState: pageState),
               ),
-            ];
-          },
-          body: TabBarView(children: [
-            for(String str in topik.getSubTopik())
-              CustomScrollView(
-                slivers: [
-                  SliverList(
-                    delegate: SliverChildListDelegate([
-                      SizedBox(
-                        height: 400,
-                        child: Center(
-                          child: Text(
-                            str,
-                            style: const TextStyle(fontSize: 40),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        height: 1500,
-                        color: Colors.grey,
-                      ),
-                    ]),
-                  ),
-                ],
-              ),
-            ],
+            ),
           ),
-        ),
-      ),
+      )
     );
   }
 }
