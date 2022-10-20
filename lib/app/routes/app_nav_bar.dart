@@ -1,22 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:an_app_vone/app/routes/app_menu.dart';
-import 'package:an_app_vone/app/routes/app_pages.dart';
+import 'package:trial_antara/app/routes/app_pages.dart';
+
+import '../controllers/auth_controller.dart';
 
 
 class NavBar extends StatelessWidget {
-  const NavBar({Key? key}) : super(key: key);
+  final authC = Get.find<AuthController>();
+
+  NavBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    String? userName = authC.auth.currentUser!.displayName;
+    String? email = authC.auth.currentUser!.email;
     return Drawer(
       width: 200,
       child: ListView(
         children: [
           UserAccountsDrawerHeader(
-            accountName: const Text('BIJE'),
-            accountEmail: const Text('bije519@gmail.com'),
+            accountName: Text(userName!),
+            accountEmail: Text(email!),
             currentAccountPicture: CircleAvatar(
               backgroundColor: Colors.grey[600],
               child: ClipOval(
@@ -30,7 +35,6 @@ class NavBar extends StatelessWidget {
               ),
             ),
             decoration: const BoxDecoration(
-              // color: Colors.blue,
               image: DecorationImage(
                 fit: BoxFit.fill,
                 image: AssetImage('assets/images/profile-bg3.jpg'),
@@ -106,7 +110,7 @@ class NavBar extends StatelessWidget {
             title: const Text('Exit'),
             leading: const Icon(Icons.exit_to_app),
             onTap: () {
-              userLog = false;
+              authC.logout();
               Get.offAllNamed(Routes.HOME);
               // Navigator.of(context).pushNamed(Routes.HOME);
             },

@@ -15,9 +15,8 @@ class ProfileView extends GetView<ProfileController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const NavBar(),
+      drawer: NavBar(),
       appBar: AppBar(
-        // backgroundColor: const Color(0xFF0B5D98),
         backgroundColor: Colors.white,
         foregroundColor: Colors.black87,
         title: Row(
@@ -32,7 +31,6 @@ class ProfileView extends GetView<ProfileController> {
               title,
               style: const TextStyle(
                 color: Colors.black87,
-                // color: Colors.white,
                 fontWeight: FontWeight.bold,
                 fontSize: 24,
               ),

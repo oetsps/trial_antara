@@ -25,17 +25,28 @@ const String ActGetRelatedVideo = 'get_related_video';
 
 Map<String, String> NewsCategory = {
   'Berita': 'TOP',
-  'Top': 'TOP',
+  'Top News': 'TOP',
+  'Fokus Berita': 'FKS',
+  'Terpopuler': 'POP',
+  'Liputan Khusus': 'SCR',
   'Politik': 'PLK',
   'Hukum': 'HUK',
   'Metro': 'MET',
   'Humaniora': 'HNA',
   'Nusantara': 'TEK',     /* temporary, wait for design */
-  // 'Tenologi': 'TEK',
-  'Dunia': 'INT',
   'Ekonomi': 'EKB',
   'Sport': 'ORK',
+  'Olahraga': 'ORK',
   'Bola': 'BOL',
+  'Sepakbola': 'BOL',
+  'Hiburan': 'SBH',
+  'Dunia': 'INT',
+  'Tekno': 'TEK',
+  'Otomotif': 'AUT',
+  'Warta Bumi': 'WBM',
+  'Foto': 'FOT',
+  'Antara TV': 'VID',
+  'Streaming': 'VID',
 };
 
 Map<String, String> NewsSubCategory = {

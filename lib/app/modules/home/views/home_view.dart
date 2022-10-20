@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
+import '../../../controllers/auth_controller.dart';
 import '../../../routes/app_pages.dart';
 import '../../../routes/app_menu.dart';
 import '../../../routes/search_help.dart';
@@ -21,6 +22,8 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
 
   late final TabController _tabController;
   // late WebViewController _controller;
+  final authC = Get.find<AuthController>();
+
 
   @override
   void initState() {
@@ -50,7 +53,8 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
                         color: const Color.fromARGB(255, 241, 220, 218),
                         icon: const Icon(Icons.list),
                         itemBuilder: (context) =>
-                            userLog ? popupMenuLoggedIn : popupMenu,
+                            // userLog ? popupMenuLoggedIn : popupMenu,
+                            authC.getLoginStatus() ? popupMenuLoggedIn : popupMenu,
                         onSelected: (String newValue) {
                           if (newValue != routeTopik) {
                             // Navigator.of(context).pushNamed(newValue);

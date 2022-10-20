@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../../controllers/auth_controller.dart';
 import '../../../routes/app_pages.dart';
 import '../controllers/english_controller.dart';
 import '../../../routes/app_menu.dart';
@@ -14,6 +15,7 @@ class EnglishView extends GetView<EnglishController> {
   String routeTopik = Routes.ENGLISH;
 
   EnglishView({Key? key}) : super(key: key);
+  final authC = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,7 @@ class EnglishView extends GetView<EnglishController> {
                   color: const Color.fromARGB(255, 241, 220, 218),
                   icon: const Icon(Icons.list),
                   itemBuilder: (context) =>
-                      userLog ? popupMenuLoggedIn : popupMenu,
+                      authC.getLoginStatus() ? popupMenuLoggedIn : popupMenu,
                   onSelected: (String newValue) {
                     if (newValue != routeTopik) {
                       // Navigator.of(context).pushNamed(newValue);

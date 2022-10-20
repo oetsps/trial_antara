@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import './app_pages.dart';
 
-bool userLog = false;
+// bool userLog = false;
 // String currentTopik = '';
 // String currentSubTopik = '';
 

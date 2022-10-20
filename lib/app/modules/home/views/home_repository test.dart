@@ -1,13 +1,13 @@
+import 'package:trial_antara/app/routes/app_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import '../../../../app/routes/app_menu.dart';
 import '../../../../model/an_response.dart';
 import '../../../../network/an_get_services.dart';
 import '../../../../network/an_api_params.dart';
 
-class DataBisnis extends ChangeNotifier {
-  final AppTopik topik = AppTopik.Ekonomi;
-  // String subTopik = 'Bisnis';
+class DataHome extends ChangeNotifier {
+  AppTopik topik;
+  // String subTopik = 'Berita';
   String curSubTopik = '';
   int curSubTopikIdx = 0;
   bool loading = false;
@@ -24,15 +24,17 @@ class DataBisnis extends ChangeNotifier {
   late Readnews? postRequestNews;
   late String onRequestNews = '';
 
-  DataBisnis() {
-    for (var str in menuSubTopik[AppTopik.Ekonomi.index]) {
+  DataHome({this.topik = AppTopik.Berita}) {
+    // for (var str in menuSubTopik[AppTopik.Berita.index]) {
+    for (var str in menuSubTopik[topik.index]) {
       listSubTopik.add(str);
       repStatus.add(false);
       repNewsHtml.add('');
     }
 
     repGetNews = List.generate(
-      menuSubTopik[AppTopik.Ekonomi.index].length,
+      // menuSubTopik[AppTopik.Berita.index].length,
+      menuSubTopik[topik.index].length,
       (index) => GetNews(
           '',
           null,
@@ -43,7 +45,8 @@ class DataBisnis extends ChangeNotifier {
     );
 
     repReadNews = List.generate(
-        menuSubTopik[AppTopik.Ekonomi.index].length,
+        // menuSubTopik[AppTopik.Berita.index].length,
+        menuSubTopik[topik.index].length,
         (index) => Readnews(
             '',
             null,
@@ -60,13 +63,8 @@ class DataBisnis extends ChangeNotifier {
 
     if (!repStatus[curSubTopikIdx]) {
       String iUrl = requestAnApi.requestAnNews(
-          action: 'get_news',
-          category: 'Ekonomi',
-          subcategory: curSubTopik,
-          // subcategory: (curSubTopik == 'Ekonomi') ? '' : curSubTopik,
-          top_news: 1
-      );
-      print('iUrl ====> $iUrl');
+          action: 'get_news', category: curSubTopik, top_news: 1);
+
       if (iUrl == '') {
         print('Error get_news cause of invalid url');
         return null;
@@ -81,9 +79,7 @@ class DataBisnis extends ChangeNotifier {
       for (int i = 0; i < repGetNews[curSubTopikIdx]!.data.length; i++) {
         String url = requestAnApi.requestAnNews(
             action: 'read_news',
-            category: 'Ekonomi',
-            subcategory: curSubTopik,
-            // subcategory: (curSubTopik == 'Ekonomi') ? '' : curSubTopik,
+            category: curSubTopik,
             news_id: repGetNews[curSubTopikIdx]!.data[i].id);
         if (url == '') {
           print('Error read_news cause of invalid url');
@@ -195,4 +191,46 @@ class DataBisnis extends ChangeNotifier {
   String getHtmlOnRequestNews() {
     return onRequestNews;
   }
+
+  void setTopik(AppTopik newTopik) {
+
+    loading = true;
+
+    topik = newTopik;
+
+    for (var str in menuSubTopik[topik.index]) {
+      listSubTopik.add(str);
+      repStatus.add(false);
+      repNewsHtml.add('');
+    }
+
+    repGetNews = List.generate(
+      menuSubTopik[topik.index].length,
+      (index) => GetNews(
+          '',
+          null,
+          List.generate(
+              PageNumber,
+              (index) => DataGetNews(
+                  0, 0, '', null, '', '', null, null, 0.0, '', '', ''))),
+    );
+
+    repReadNews = List.generate(
+        menuSubTopik[topik.index].length,
+        (index) => Readnews(
+            '',
+            null,
+            DataReadNews(0, 0, '', null, '', '', '', '', null, '', null, '', 0, '', '', 0.0, '', '', '',
+                List.generate(
+                    PageNumber,
+                    (index) =>
+                        RelatedNews(0, 0, '', null, '', '', '', '', 0.0)))));
+
+    curSubTopikIdx = 0;
+    curSubTopik = listSubTopik[curSubTopikIdx];
+    
+    loading = false;
+    notifyListeners();
+  }
+
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../../controllers/auth_controller.dart';
 import '../../../routes/app_pages.dart';
 import '../controllers/infografik_controller.dart';
 import '../../../routes/app_menu.dart';
@@ -13,6 +14,7 @@ class InfografikView extends GetView<InfografikController> {
   String routeTopik = Routes.INFOGRAFIK;
 
   InfografikView({Key? key}) : super(key: key);
+  final authC = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class InfografikView extends GetView<InfografikController> {
                   color: const Color.fromARGB(255, 241, 220, 218),
                   icon: const Icon(Icons.list),
                   itemBuilder: (context) =>
-                      userLog ? popupMenuLoggedIn : popupMenu,
+                      authC.getLoginStatus() ? popupMenuLoggedIn : popupMenu,
                   onSelected: (String newValue) {
                     if (newValue != routeTopik) {
                       // Navigator.of(context).pushNamed(newValue);

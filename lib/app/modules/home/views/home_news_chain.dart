@@ -6,10 +6,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 import '../views/home_repository.dart';
 
 class NewsChain extends StatelessWidget {
-  const NewsChain({
-    Key? key,
-    required this.label,
-  }) : super(key: key);
+  const NewsChain({Key? key, required this.label,}) : super(key: key);
 
   final String label;
 
